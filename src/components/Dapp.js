@@ -1,5 +1,11 @@
+import CreateCompany from "./CreateCompany"
+import CompanyList from "./CompanyList"
+
 const Dapp = () => {
-  return <></>;
+  return <div>
+    <CreateCompany />
+    <CompanyList />
+  </div>;
 };
 
 export default Dapp;
