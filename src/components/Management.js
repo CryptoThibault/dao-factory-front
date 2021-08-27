@@ -18,7 +18,7 @@ const Management = () => {
   return (
     <div>
       <Button>Feed</Button>
-      <Stack>
+      <Stack spacing={3}>
         <Text>Employ people</Text>
         <Input value={account} onChange={handleChangeAccount} />
         <Input value={salary} onChange={handleChangeSalary} />
