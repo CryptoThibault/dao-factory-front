@@ -1,4 +1,4 @@
-export const daoFactoryAddress = ""
+export const daoFactoryAddress = "";
 export const daoFactoryAbi = [
   {
     "anonymous": false,

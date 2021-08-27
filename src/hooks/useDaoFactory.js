@@ -1,5 +1,5 @@
 import { useContext, useReducer } from "react"
-import { ContractsContext } from "../context/ContractsContext"
+import ContractsContext from "../context/ContractsContext"
 import { daoFactoryReducer } from "../reducers/daoFactoryReducer"
 
 export const useDaoFactory = () => {
