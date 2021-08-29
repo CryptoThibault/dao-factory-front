@@ -35,6 +35,7 @@ const Governance = () => {
 
   return (
     <Box>
+      <Text>Governance</Text>
       <Stack spacing={3}>
         <Text>Submit a Role Proposal</Text>
         <Input value={description} onChange={handleChangeDescription} />

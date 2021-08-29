@@ -9,6 +9,7 @@ export const useTreasury = () => {
     receiver: "",
     amount: "",
     sendAmount: "",
+    sendAddress: "",
     charges_id: [],
     charges_data: [],
   })

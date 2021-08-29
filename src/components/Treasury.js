@@ -5,7 +5,7 @@ import Charge from "./Charge";
 
 const Treasury = () => {
   const [treasury, treasuryState, treasuryDispatch] = useTreasury()
-  const { name, receiver, amount, sendAmount, charges_id, charges_data } = treasuryState
+  const { name, receiver, amount, sendAmount, sendAddress, charges_id, charges_data } = treasuryState
 
   const handleChangeName = (e) => {
     treasuryDispatch({ type: "CHANGE_NAME", payload: e.target.event })
@@ -18,6 +18,16 @@ const Treasury = () => {
   }
   const handleChangeSendAmount = (e) => {
     treasuryDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
+  }
+  const handleChangeSendAddress = (e) => {
+    treasuryDispatch({ type: "CHANGE_SEND_ADDRESS", payload: e.target.event })
+  }
+
+  const handleClickFeed = async () => {
+    await treasury.feed({ sendAmount });
+  }
+  const handleClickTransfer = async () => {
+    await treasury.simpleTransfer(sendAddress, sendAmount)
   }
   const handleClickAdd = async () => {
     await treasury.addCharge(name, receiver, amount);
@@ -47,9 +57,11 @@ const Treasury = () => {
 
   return (
     <Box>
-      <Button>Feed</Button>
+      <Treasury></Treasury>
       <Input value={sendAmount} onChange={handleChangeSendAmount}></Input>
-      <Button>Transfer</Button>
+      <Button onClick={handleClickFeed}>Feed</Button>
+      <Input value={sendAddress} onChange={handleChangeSendAddress}></Input>
+      <Button onClick={handleClickTransfer}>Transfer</Button>
       <Stack spacing={3}>
         <Text>Create Charge</Text>
         <Input value={name} onChange={handleChangeName} />

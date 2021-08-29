@@ -1,4 +1,4 @@
-import { Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
 import { useManagement } from "../hooks/useManagement";
 import Employee from "./Employee"
 
@@ -16,7 +16,8 @@ const Management = () => {
     await management.employ(account, salary);
   }
   return (
-    <div>
+    <Box>
+      <Text>Management</Text>
       <Button>Feed</Button>
       <Stack spacing={3}>
         <Text>Employ people</Text>
@@ -25,7 +26,7 @@ const Management = () => {
         <Button onClick={handleClickEmploy}>Employ</Button>
       </Stack>
       <Employee management={management} account={account} />
-    </div>
+    </Box>
   );
 };
 

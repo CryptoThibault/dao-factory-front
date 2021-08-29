@@ -20,6 +20,11 @@ export const treasuryReducer = (state, action) => {
         ...state,
         sendAmount: action.payload,
       }
+    case "CHANGE_SEND_ADDRESS":
+      return {
+        ...state,
+        sendAddress: action.payload,
+      }
     case "LIST_CHARGES":
       return {
         ...state,
