@@ -3,22 +3,27 @@ export const governanceReducer = (state, action) => {
     case "CHANGE_DESCRIPTION":
       return {
         ...state,
-        name: action.payload,
+        description: action.payload,
       }
     case "CHANGE_ACCOUNT":
       return {
         ...state,
-        url: action.payload,
+        account: action.payload,
       }
     case "CHANGE_ROLE":
       return {
         ...state,
-        tokenName: action.payload,
+        role: action.payload,
       }
     case "CHANGE_GRANT":
       return {
         ...state,
-        tokenSymbol: action.payload,
+        grant: action.payload,
+      }
+    case "LIST_PROPOSAL":
+      return {
+        ...state,
+        proposals_id: action.payload,
       }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }

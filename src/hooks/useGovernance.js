@@ -1,17 +1,18 @@
 import { useContext, useReducer } from "react"
 import ContractsContext from "../context/ContractsContext"
-import { daoFactoryReducer } from "../reducers/daoFactoryReducer"
+import { governanceReducer } from "../reducers/governanceReducer"
 
-export const useDaoFactory = () => {
-  const [daoFactory] = useContext(ContractsContext)
-  const [daoFactoryState, daoFactoryDispatch] = useReducer(daoFactoryReducer, {
+export const useGovernance = () => {
+  const [governance] = useContext(ContractsContext)
+  const [governanceState, governanceDispatch] = useReducer(governanceReducer, {
     description: "",
     account: "",
     role: "",
     grant: true,
+    proposals_id: [],
   })
-  if (daoFactory === undefined) {
+  if (governance === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")
   }
-  return [daoFactory, daoFactoryState, daoFactoryDispatch]
+  return [governance, governanceState, governanceDispatch]
 }

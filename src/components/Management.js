@@ -13,7 +13,7 @@ const Management = () => {
     managementDispatch({ type: "CHANGE_SALARY", payload: e.target.event })
   }
   const handleClickEmploy = async () => {
-    await management.employ
+    await management.employ(account, salary);
   }
   return (
     <div>
