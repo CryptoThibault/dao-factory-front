@@ -1,10 +1,11 @@
 import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useTreasury } from "../hooks/useTreasury";
 import Charge from "./Charge";
 
 const Treasury = () => {
   const [treasury, treasuryState, treasuryDispatch] = useTreasury()
-  const { name, receiver, amount, sendAmount } = treasuryState
+  const { name, receiver, amount, sendAmount, charges_id, charges_data } = treasuryState
 
   const handleChangeName = (e) => {
     treasuryDispatch({ type: "CHANGE_NAME", payload: e.target.event })
@@ -22,6 +23,28 @@ const Treasury = () => {
     await treasury.addCharge(name, receiver, amount);
   }
 
+  useEffect(() => {
+    let ids = []
+    let data = []
+    async function getCharges() {
+      const id = await treasury.nbCharge();
+      for (let i = 1; i <= id; i++) {
+        ids.push(i)
+        data.push({
+          name: await treasury.nameOf(i),
+          receiver: await treasury.receiverOf(i),
+          amount: await treasury.amountOf(i),
+          createdAt: await treasury.creationOf(i),
+          active: await treasury.activeOf(i),
+          counter: await treasury.counterOf(i),
+        })
+      }
+    }
+    getCharges()
+    treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
+
+  }, [treasury, treasuryDispatch])
+
   return (
     <Box>
       <Button>Feed</Button>
@@ -34,7 +57,10 @@ const Treasury = () => {
         <Input value={amount} onChange={handleChangeAmount} />
         <Button onClick={handleClickAdd}>Create Charge</Button>
       </Stack>
-      <Charge />
+      {charges_id.map(el => {
+        return <Charge treasury={treasury} id={el} data={charges_data[el]} />
+      })}
+
     </Box>
   );
 };

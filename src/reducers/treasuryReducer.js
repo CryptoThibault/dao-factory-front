@@ -20,6 +20,16 @@ export const treasuryReducer = (state, action) => {
         ...state,
         sendAmount: action.payload,
       }
+    case "LIST_CHARGES":
+      return {
+        ...state,
+        charges_id: action.payload,
+      }
+    case "CHANGE_CHARGES_DATA":
+      return {
+        ...state,
+        charges_data: action.payload,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

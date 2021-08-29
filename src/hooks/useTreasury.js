@@ -9,6 +9,8 @@ export const useTreasury = () => {
     receiver: "",
     amount: "",
     sendAmount: "",
+    charges_id: [],
+    charges_data: [],
   })
   if (treasury === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")

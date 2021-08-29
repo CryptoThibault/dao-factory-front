@@ -30,7 +30,7 @@ const Governance = () => {
       for (let i = 1; i <= id; i++) { ids.push(i) }
     }
     getIds()
-    governanceDispatch({ type: "LIST_PROPOSAL", payload: ids })
+    governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
   }, [governance, governanceDispatch])
 
   return (

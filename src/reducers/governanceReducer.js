@@ -20,7 +20,7 @@ export const governanceReducer = (state, action) => {
         ...state,
         grant: action.payload,
       }
-    case "LIST_PROPOSAL":
+    case "LIST_PROPOSALS":
       return {
         ...state,
         proposals_id: action.payload,

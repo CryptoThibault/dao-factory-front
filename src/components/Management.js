@@ -24,7 +24,7 @@ const Management = () => {
         <Input value={salary} onChange={handleChangeSalary} />
         <Button onClick={handleClickEmploy}>Employ</Button>
       </Stack>
-      <Employee />
+      <Employee management={management} account={account} />
     </div>
   );
 };
