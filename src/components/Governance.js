@@ -1,4 +1,5 @@
 import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useGovernance } from "../hooks/useGovernance";
 import Proposal from "./Proposal";
@@ -29,7 +30,7 @@ const Governance = () => {
     await governance.unlock(lockAmount)
   }
   const handleClickPropose = async () => {
-    await governance.propose(description, account, role, grant);
+    await governance.propose(description, account, ethers.utils.id(role), grant);
   }
 
   useEffect(() => {
