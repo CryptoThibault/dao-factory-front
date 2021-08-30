@@ -14,10 +14,10 @@ Created with Create-react-app
 Dapp
 ├── CreateCompany
 ├── CompanyList
-│   └── DashboardCompany
-│       ├── Governance ── Proposal
-│       ├── Management ── Employee
-│       └── Treasury ── Charge
+│   ├── DashboardCompany
+│   │   ├── Governance ── Proposal
+│   │   ├── Management ── Employee
+│   │   └── Treasury ── Charge
 ```
 
 ### Install Repository
