@@ -1,10 +1,34 @@
-# Front Template for Dapp
+# Dao Factory by Crypto Thibault
 
 Created with Create-react-app
 
-More tools:
+### Dependencies:
+
+- Chakra-ui
+- Web3 Hooks
+- Ethers Js
+
+### Dapp structure
+
+```
+Dapp
+├── CreateCompany
+├── CompanyList
+│   └── DashboardCompany
+│       ├── Governance ── Proposal
+│       ├── Management ── Employee
+│       └── Treasury ── Charge
+```
+
+### Install Repository
 
 ```zsh
-yarn add @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^4
-yarn add web3-hooks
+git clone https://github.com/CryptoThibault/dao-factory-front.git
+yarn
+```
+
+### Run website on Localhost:
+
+```zsh
+yarn start
 ```
