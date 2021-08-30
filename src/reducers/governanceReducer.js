@@ -1,5 +1,10 @@
 export const governanceReducer = (state, action) => {
   switch (action.type) {
+    case "CHANGE_LOCK_AMOUNT":
+      return {
+        ...state,
+        lockAmount: action.payload,
+      }
     case "CHANGE_DESCRIPTION":
       return {
         ...state,

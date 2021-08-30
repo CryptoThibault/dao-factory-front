@@ -1,14 +1,24 @@
+import { Box, Stack, Text } from "@chakra-ui/react";
 import Governance from "./Governance"
 import Management from "./Management"
 import Treasury from "./Treasury"
 
-const DashboardCompany = () => {
+const DashboardCompany = ({ id, data }) => {
   return (
-    <div>
+    <Box>
+      <Stack>
+        <Text>Business information</Text>
+        <Text>Name: {data.name}</Text>
+        <Text>Url: {data.url}</Text>
+        <Text>Author: {data.author}</Text>
+        <Text>Created at: {data.createdAt}</Text>
+        <Text>Contract Address: {data.daoAddress}</Text>
+        <Text>Id: {id}</Text>
+      </Stack>
       <Governance />
       <Treasury />
       <Management />
-    </div>
+    </Box>
   );
 };
 

@@ -35,7 +35,7 @@ const Treasury = () => {
 
   useEffect(() => {
     let ids = []
-    let data = []
+    let data = [{}]
     async function getCharges() {
       const id = await treasury.nbCharge();
       for (let i = 1; i <= id; i++) {
@@ -52,12 +52,12 @@ const Treasury = () => {
     }
     getCharges()
     treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
-
+    treasuryDispatch({ type: "UPDATE_CHARGES_DATA", payload: data })
   }, [treasury, treasuryDispatch])
 
   return (
     <Box>
-      <Treasury></Treasury>
+      <Text>Treasury</Text>
       <Input value={sendAmount} onChange={handleChangeSendAmount}></Input>
       <Button onClick={handleClickFeed}>Feed</Button>
       <Input value={sendAddress} onChange={handleChangeSendAddress}></Input>

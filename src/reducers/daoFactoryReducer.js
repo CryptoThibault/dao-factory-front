@@ -20,6 +20,16 @@ export const daoFactoryReducer = (state, action) => {
         ...state,
         tokenSymbol: action.payload,
       }
+    case "LIST_COMPANY":
+      return {
+        ...state,
+        daoFactory_id: action.payload,
+      }
+    case "UPDATE_COMPANY_DATA":
+      return {
+        ...state,
+        daoFactory_data: action.payload,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

@@ -30,7 +30,7 @@ export const treasuryReducer = (state, action) => {
         ...state,
         charges_id: action.payload,
       }
-    case "CHANGE_CHARGES_DATA":
+    case "UPDATE_CHARGES_DATA":
       return {
         ...state,
         charges_data: action.payload,

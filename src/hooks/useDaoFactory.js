@@ -9,6 +9,8 @@ export const useDaoFactory = () => {
     url: "",
     tokenName: "",
     tokenSymbol: "",
+    daoFactory_id: [],
+    daoFactory_data: [],
   })
   if (daoFactory === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")
