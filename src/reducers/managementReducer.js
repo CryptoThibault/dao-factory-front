@@ -10,6 +10,11 @@ export const managementReducer = (state, action) => {
         ...state,
         salary: action.payload,
       }
+    case "CHANGE_SEND_AMOUNT":
+      return {
+        ...state,
+        sendAmount: action.payload,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

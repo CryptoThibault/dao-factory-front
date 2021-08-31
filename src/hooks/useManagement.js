@@ -7,6 +7,7 @@ export const useManagement = () => {
   const [managementState, managementDispatch] = useReducer(managementReducer, {
     account: "",
     salary: "",
+    sendAmount: "",
   })
   if (management === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")

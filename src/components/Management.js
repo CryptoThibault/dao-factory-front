@@ -4,7 +4,7 @@ import Employee from "./Employee"
 
 const Management = () => {
   const [management, managementState, managementDispatch] = useManagement()
-  const { account, salary } = managementState
+  const { account, salary, sendAmount } = managementState
 
   const handleChangeAccount = (e) => {
     managementDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.event })
@@ -12,13 +12,20 @@ const Management = () => {
   const handleChangeSalary = (e) => {
     managementDispatch({ type: "CHANGE_SALARY", payload: e.target.event })
   }
+  const handleChangeSendAmount = (e) => {
+    managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
+  }
+  const handleClickFeed = async () => {
+    await management.feed({ value: sendAmount });
+  }
   const handleClickEmploy = async () => {
     await management.employ(account, salary);
   }
   return (
     <Box>
       <Text>Management</Text>
-      <Button>Feed</Button>
+      <Input value={sendAmount} onChange={handleChangeSendAmount} />
+      <Button onClick={handleClickFeed}>Feed</Button>
       <Stack spacing={3}>
         <Text>Employ people</Text>
         <Input value={account} onChange={handleChangeAccount} />

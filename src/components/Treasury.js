@@ -24,7 +24,7 @@ const Treasury = () => {
   }
 
   const handleClickFeed = async () => {
-    await treasury.feed({ sendAmount });
+    await treasury.feed({ value: sendAmount });
   }
   const handleClickTransfer = async () => {
     await treasury.simpleTransfer(sendAddress, sendAmount)
