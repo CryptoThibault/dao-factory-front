@@ -1,9 +1,24 @@
 export const governanceReducer = (state, action) => {
   switch (action.type) {
+    case "UPDATE_TOKEN_DATA":
+      return {
+        ...state,
+        token_data: action.payload,
+      }
+    case "CHANGE_SEND_ACCOUNT":
+      return {
+        ...state,
+        send_amount: action.payload,
+      }
+    case "CHANGE_SEND_AMOUNT":
+      return {
+        ...state,
+        send_amount: action.payload,
+      }
     case "CHANGE_LOCK_AMOUNT":
       return {
         ...state,
-        lockAmount: action.payload,
+        lock_amount: action.payload,
       }
     case "CHANGE_DESCRIPTION":
       return {
@@ -29,6 +44,11 @@ export const governanceReducer = (state, action) => {
       return {
         ...state,
         proposals_id: action.payload,
+      }
+    case "UPDATE_PROPOSALS_DATA":
+      return {
+        ...state,
+        proposals_data: action.payload,
       }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }

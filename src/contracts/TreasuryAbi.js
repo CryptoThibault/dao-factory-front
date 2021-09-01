@@ -1,4 +1,3 @@
-export const treasuryAddress = "";
 export const treasuryAbi = [
   {
     "inputs": [],

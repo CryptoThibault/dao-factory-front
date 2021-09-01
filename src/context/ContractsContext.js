@@ -1,14 +1,15 @@
 import { createContext } from "react";
 import { useContract } from "web3-hooks";
 import { daoFactoryAbi, daoFactoryAddress } from "../contracts/DaoFactoryAbi";
-import { daoAbi, daoAddress } from "../contracts/DaoAbi";
-import { governanceAbi, governanceAddress } from "../contracts/GovernanceAbi";
-import { managementAbi, managementAddress } from "../contracts/ManagementAbi";
-import { treasuryAbi, treasuryAddress } from "../contracts/TreasuryAbi";
+import { daoAbi } from "../contracts/DaoAbi";
+import { governanceAbi } from "../contracts/GovernanceAbi";
+import { managementAbi } from "../contracts/ManagementAbi";
+import { treasuryAbi } from "../contracts/TreasuryAbi";
 
 export const ContractsContext = createContext(null);
 
 const ContractsContextProvider = ({ children }) => {
+  let daoAddress, governanceAddress, managementAddress, treasuryAddress
   const daoFactory = useContract(daoFactoryAddress, daoFactoryAbi)
   const dao = useContract(daoAddress, daoAbi)
   const governance = useContract(governanceAddress, governanceAbi)

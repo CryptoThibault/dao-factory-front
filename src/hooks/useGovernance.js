@@ -5,7 +5,10 @@ import { governanceReducer } from "../reducers/governanceReducer"
 export const useGovernance = () => {
   const [governance] = useContext(ContractsContext)
   const [governanceState, governanceDispatch] = useReducer(governanceReducer, {
-    lockAmount: "",
+    token_data: [],
+    send_account: "",
+    send_amount: "",
+    lock_amount: "",
     description: "",
     account: "",
     role: "",

@@ -1,4 +1,3 @@
-export const managementAddress = "";
 export const managementAbi = [
   {
     "inputs": [],

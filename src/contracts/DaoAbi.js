@@ -1,4 +1,3 @@
-export const daoAddress = "";
 export const daoAbi = [
   {
     "inputs": [

@@ -1,4 +1,3 @@
-export const governanceAddress = "";
 export const governanceAbi = [
   {
     "inputs": [
