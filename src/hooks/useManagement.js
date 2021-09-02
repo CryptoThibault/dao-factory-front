@@ -8,6 +8,8 @@ export const useManagement = () => {
     account: "",
     salary: "",
     sendAmount: "",
+    employees_id: [],
+    employees_data: [],
   })
   if (management === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")

@@ -1,12 +1,12 @@
 import { Box, Text } from "@chakra-ui/react";
 
-const Employee = ({ management, account }) => {
+const Employee = ({ management, id, data }) => {
   return (
     <Box>
-      <Text>Address: {account}</Text>
-      <Text>Salary</Text>
-      <Text>Employed at</Text>
-      <Text>Last Payout</Text>
+      <Text>Address: {data.account}</Text>
+      <Text>Salary: {data.salary}</Text>
+      <Text>Employed at {data.employed_at}</Text>
+      <Text>Last Payout: {data.last_payout}</Text>
     </Box>
   );
 };
