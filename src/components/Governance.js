@@ -70,6 +70,7 @@ const Governance = () => {
           nbNo: await governance.nbNo(i),
           createdAt: await governance.creationOf(i),
           status: await governance.statusOf(i),
+          voteUsed: await governance.voteUsed(web3State.account, i),
         })
       }
     }

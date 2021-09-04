@@ -50,6 +50,11 @@ export const governanceReducer = (state, action) => {
         ...state,
         proposals_data: action.payload,
       }
+    case "UPDATE_VOTE_USED":
+      return {
+        ...state,
+        vote_used: action.payload,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

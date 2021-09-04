@@ -14,6 +14,7 @@ export const useGovernance = () => {
     role: "",
     grant: true,
     proposals_id: [],
+    vote_used: [],
   })
   if (governance === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")

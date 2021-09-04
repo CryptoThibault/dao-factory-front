@@ -7,7 +7,6 @@ const Proposal = (governance, id, data) => {
   const handleClickNo = async () => {
     await governance.vote(id, 1);
   }
-
   return (
     <Box>
       <Text>Proposal {id}</Text>
@@ -22,8 +21,7 @@ const Proposal = (governance, id, data) => {
       <Text>Status: {data.status}</Text>
       <Button onClick={handleClickYes}>Yes</Button>
       <Button onClick={handleClickNo}>No</Button>
-      <Text>Voting power: </Text>
-      <Text>Vote Used: </Text>
+      <Text>Vote Used: {data.voteUsed}</Text>
     </Box >
   );
 };

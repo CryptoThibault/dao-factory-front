@@ -1,6 +1,12 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Button, Text } from "@chakra-ui/react";
 
 const Charge = ({ treasury, id, data }) => {
+  const handleClickCancel = async () => {
+    await treasury.cancelCharge(id);
+  }
+  const handleClickPay = async () => {
+    await treasury.payCharge(id)
+  }
   return (
     <Box>
       <Text>Charge {id}</Text>
@@ -10,6 +16,8 @@ const Charge = ({ treasury, id, data }) => {
       <Text>Created at: {data.createdAt}</Text>
       <Text>Active: {data.active}</Text>
       <Text>Use counter: {data.counter}</Text>
+      <Button onClick={handleClickCancel}>Cancel this charge</Button>
+      <Button onClick={handleClickPay}>Pay this Charge</Button>
     </Box>
   );
 };
