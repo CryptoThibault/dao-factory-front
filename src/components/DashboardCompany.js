@@ -1,6 +1,6 @@
 import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Web3Context } from "web3-hooks";
 import { useDao } from "../hooks/useDao";
 import Governance from "./Governance"
@@ -29,6 +29,18 @@ const DashboardCompany = ({ id, data }) => {
   const checkRole = async (role) => {
     return await dao.hasRole(ethers.utils.id(role), web3State.account)
   }
+
+  useEffect(() => {
+    let gov, man, tre;
+    const getAddress = async () => {
+      gov = await dao.governanceAddress();
+      man = await dao.managementAddress();
+      tre = await dao.treasuryAddress();
+    }
+    getAddress()
+    daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
+  }, [dao, daoDispatch])
+
   return (
     <Box>
       <Stack>

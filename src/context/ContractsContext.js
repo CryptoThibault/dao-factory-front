@@ -5,13 +5,19 @@ import { daoAbi } from "../contracts/DaoAbi";
 import { governanceAbi } from "../contracts/GovernanceAbi";
 import { managementAbi } from "../contracts/ManagementAbi";
 import { treasuryAbi } from "../contracts/TreasuryAbi";
+import { useDao } from "../hooks/useDao";
+import { useParams } from "react-router-dom";
 
 export const ContractsContext = createContext(null);
 
 const ContractsContextProvider = ({ children }) => {
-  let daoAddress, governanceAddress, managementAddress, treasuryAddress
+  const id = useParams()
   const daoFactory = useContract(daoFactoryAddress, daoFactoryAbi)
-  const dao = useContract(daoAddress, daoAbi)
+  const [, daoState] = useDao();
+  const [, daoFactoryState] = useDao();
+  const { daoFactory_data } = daoFactoryState
+  const { governanceAddress, managementAddress, treasuryAddress } = daoState
+  const dao = useContract(daoFactory_data[id].daoAddress, daoAbi)
   const governance = useContract(governanceAddress, governanceAbi)
   const management = useContract(managementAddress, managementAbi)
   const treasury = useContract(treasuryAddress, treasuryAbi)

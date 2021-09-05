@@ -15,6 +15,13 @@ export const daoReducer = (state, action) => {
         ...state,
         grant: action.payload,
       }
+    case "UPDATE_ADDRESS":
+      return {
+        ...state,
+        governanceAddress: action.payload.governanceAddress,
+        managementAddress: action.payload.managementAddress,
+        treasuryAddress: action.payload.treasuryAddress,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

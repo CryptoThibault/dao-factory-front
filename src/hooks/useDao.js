@@ -8,6 +8,9 @@ export const useDao = () => {
     account: "",
     role: "",
     grant: true,
+    governanceAddress: "",
+    managementAddress: "",
+    treasuryAddress: "",
   })
   if (dao === undefined) {
     throw new Error("You try to use ContractsContext outside of his provider")
