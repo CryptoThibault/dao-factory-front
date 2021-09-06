@@ -34,7 +34,7 @@ const Management = () => {
           account: account_,
           salary: await management.salaryOf(account_),
           employed_at: await management.employmentOf(account_),
-          last_payout: await management.lastPayoutOf(account_),
+          next_payout: await management.lastPayoutOf(account_),
         })
       }
     }
