@@ -2,25 +2,64 @@ import CreateCompany from "./CreateCompany"
 import CompanyList from "./CompanyList"
 import { Box, Button, Text } from "@chakra-ui/react";
 import ContractsContextProvider from "../context/ContractsContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Web3Context } from "web3-hooks";
+import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom"
+import DashboardCompany from "./DashboardCompany";
+import { useDaoFactory } from "../hooks/useDaoFactory";
 
 const Dapp = () => {
+  const id = useParams()
   const [web3State, login] = useContext(Web3Context)
+  const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory()
+  const { daoFactory_id, daoFactory_data } = daoFactoryState
 
   const handleClickLogin = () => {
     if (!web3State.isLogged) {
       login()
     }
   }
+
+  useEffect(() => {
+    let ids = []
+    let data = [{}]
+    async function getCompany() {
+      const id = await daoFactory.lastId();
+      for (let i = 1; i <= id; i++) {
+        ids.push(i)
+        data.push({
+          name: await daoFactory.nameOf(i),
+          url: await daoFactory.receiverOf(i),
+          author: await daoFactory.authorOf(i),
+          createdAt: await daoFactory.creationOf(i),
+          daoAddress: await daoFactory.daoAddressOf(i),
+        })
+      }
+    }
+    getCompany()
+    daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
+    daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
+  }, [daoFactory, daoFactoryDispatch])
+
   return (
     <ContractsContextProvider>
       <Button onClick={handleClickLogin}>{!web3State.isLogged ? 'Log in' : 'Log out'}</Button>
-      <Box margin={5}>
-        <Text>Dao Factory</Text>
-        <CreateCompany />
-        <CompanyList />
-      </Box>
+      {web3State.isLogged
+        ? <Box margin={5}>
+          <Text>Dao Factory</Text>
+          <Router>
+            <Switch>
+              <Route path="/:id">
+                <DashboardCompany id={id} data={daoFactory_data[id]} />
+              </Route>
+              <Route path="/">
+                <CreateCompany />
+                <CompanyList ids={daoFactory_id} data={daoFactory_data} />
+              </Route>
+            </Switch>
+          </Router>
+        </Box> : <></>}
+
     </ContractsContextProvider>
   );
 };
