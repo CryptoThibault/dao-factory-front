@@ -9,7 +9,8 @@ import DashboardCompany from "./DashboardCompany";
 import { useDaoFactory } from "../hooks/useDaoFactory";
 
 const Dapp = () => {
-  const id = useParams()
+  const params = useParams()
+  const { id } = params
   const [web3State, login] = useContext(Web3Context)
   const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory()
   const { daoFactory_id, daoFactory_data } = daoFactoryState

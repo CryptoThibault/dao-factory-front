@@ -10,7 +10,8 @@ import { useParams } from "react-router-dom";
 export const ContractsContext = createContext(null);
 
 const ContractsContextProvider = ({ children }) => {
-  const id = useParams()
+  const params = useParams()
+  const { id } = params
   const daoFactory = useContract(daoFactoryAddress, daoFactoryAbi)
   const [daoAddress, daoUpdate] = useState("")
   useEffect(() => {
