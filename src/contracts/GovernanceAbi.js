@@ -520,6 +520,19 @@ export const governanceAbi = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "nbProposal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -777,7 +790,7 @@ export const governanceAbi = [
         "type": "address"
       }
     ],
-    "name": "votingPower",
+    "name": "votingPowerOf",
     "outputs": [
       {
         "internalType": "uint256",

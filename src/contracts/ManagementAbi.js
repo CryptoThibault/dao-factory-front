@@ -152,6 +152,25 @@ export const managementAbi = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      }
+    ],
+    "name": "accountAt",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "account_",
         "type": "address"
@@ -238,6 +257,19 @@ export const managementAbi = [
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "nbEmployee",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -245,7 +277,7 @@ export const managementAbi = [
         "type": "address"
       }
     ],
-    "name": "lastPayoutOf",
+    "name": "nextPayoutOf",
     "outputs": [
       {
         "internalType": "uint256",
