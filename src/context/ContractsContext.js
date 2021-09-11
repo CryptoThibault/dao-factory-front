@@ -1,17 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { useContract } from "web3-hooks";
-import { daoFactoryAbi, daoFactoryAddress } from "../contracts/DaoFactoryAbi";
 import { daoAbi } from "../contracts/DaoAbi";
 import { governanceAbi } from "../contracts/GovernanceAbi";
 import { managementAbi } from "../contracts/ManagementAbi";
 import { treasuryAbi } from "../contracts/TreasuryAbi";
-import { useParams } from "react-router-dom";
+import { daoFactoryAbi, daoFactoryAddress } from "../contracts/DaoFactoryAbi";
 
 export const ContractsContext = createContext(null);
 
-const ContractsContextProvider = ({ children }) => {
-  const params = useParams()
-  const { id } = params
+const ContractsContextProvider = ({ children, id }) => {
   const daoFactory = useContract(daoFactoryAddress, daoFactoryAbi)
   const [daoAddress, daoUpdate] = useState("")
   useEffect(() => {
@@ -47,7 +44,7 @@ const ContractsContextProvider = ({ children }) => {
   const treasury = useContract(treasuryAddress, treasuryAbi)
 
   return (
-    <ContractsContext.Provider value={[daoFactory, dao, governance, management, treasury]}>
+    <ContractsContext.Provider value={[dao, governance, management, treasury]}>
       {children}
     </ContractsContext.Provider>
   );

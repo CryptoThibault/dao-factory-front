@@ -7,14 +7,14 @@ import { Web3Context } from "web3-hooks";
 import { BrowserRouter as Router, Route, Switch, useParams } from "react-router-dom"
 import DashboardCompany from "./DashboardCompany";
 import { useDaoFactory } from "../hooks/useDaoFactory";
+import DaoFactoryContextProvider from "../context/DaoFactoryContext";
 
 const Dapp = () => {
-  const params = useParams()
-  const { id } = params
   const [web3State, login] = useContext(Web3Context)
   const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory()
   const { daoFactory_id, daoFactory_data } = daoFactoryState
-
+  const params = useParams()
+  const id = params
   const handleClickLogin = () => {
     if (!web3State.isLogged) {
       login()
@@ -43,7 +43,7 @@ const Dapp = () => {
   }, [daoFactory, daoFactoryDispatch])
 
   return (
-    <ContractsContextProvider>
+    <DaoFactoryContextProvider>
       <Button onClick={handleClickLogin}>{!web3State.isLogged ? 'Log in' : 'Log out'}</Button>
       {web3State.isLogged
         ? <Box margin={5}>
@@ -51,7 +51,9 @@ const Dapp = () => {
           <Router>
             <Switch>
               <Route path="/:id">
-                <DashboardCompany id={id} data={daoFactory_data[id]} />
+                <ContractsContextProvider id={id}>
+                  <DashboardCompany id={id} data={daoFactory_data[id]} />
+                </ContractsContextProvider>
               </Route>
               <Route path="/">
                 <CreateCompany />
@@ -61,7 +63,7 @@ const Dapp = () => {
           </Router>
         </Box> : <></>}
 
-    </ContractsContextProvider>
+    </DaoFactoryContextProvider>
   );
 };
 
