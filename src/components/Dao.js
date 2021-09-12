@@ -8,7 +8,6 @@ import Roles from "./Roles";
 const Dao = () => {
   const params = useParams()
   const { id } = params
-
   const [, daoFactoryState] = useDaoFactory();
   const data = daoFactoryState.daoFactory_data[id];
 

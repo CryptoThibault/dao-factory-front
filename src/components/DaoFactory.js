@@ -1,7 +1,7 @@
 import { useDaoFactory } from "../hooks/useDaoFactory";
-import { Box, Button, Input, Stack } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftAddon, Stack, Text } from "@chakra-ui/react";
 
-const DaoFactory = () => {
+const DaoFactory = ({ listUp }) => {
   const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory()
   const { name, url, tokenName, tokenSymbol } = daoFactoryState
 
@@ -19,15 +19,29 @@ const DaoFactory = () => {
   }
   const handleClickGenerate = async () => {
     await daoFactory.create(name, url, tokenName, tokenSymbol);
+    listUp(true);
   }
 
   return (
-    <Box>
+    <Box margin={5}>
+      <Text fontSize={20} margin={2}>Create a dao</Text>
       <Stack spacing={3}>
-        <Input placeholder="Example" value={name} onChange={handleChangeName} />
-        <Input placeholder="https://example.com" value={url} onChange={handleChangeUrl} />
-        <Input placeholder="Example Governance Token" value={tokenName} onChange={handleChangeTokenName} />
-        <Input placeholder="EGT" value={tokenSymbol} onChange={handleChangeTokenSymbol} />
+        <InputGroup>
+          <InputLeftAddon children="Company name :" />
+          <Input placeholder="Example" value={name} onChange={handleChangeName} />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Company Url :" />
+          <Input placeholder="example.com" value={url} onChange={handleChangeUrl} />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Governance token name :" />
+          <Input placeholder="Example Governance Token" value={tokenName} onChange={handleChangeTokenName} />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Governance token symbol :" />
+          <Input placeholder="EGT" value={tokenSymbol} onChange={handleChangeTokenSymbol} />
+        </InputGroup>
         <Button onClick={handleClickGenerate}>Generate Company</Button>
       </Stack>
     </Box>
