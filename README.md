@@ -12,12 +12,14 @@ Created with Create-react-app
 
 ```
 Dapp
-├── CreateCompany
-├── CompanyList
-│   ├── DashboardCompany
+├── DaoFactory
+├── DaoList
+├── Dao
+│   ├── ContractsLayout
 │   │   ├── Governance ── Proposal
 │   │   ├── Management ── Employee
 │   │   └── Treasury ── Charge
+│   └── Roles
 ```
 
 ### Install Repository
