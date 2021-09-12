@@ -1,72 +1,33 @@
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
-import { ethers } from "ethers";
-import { useContext, useEffect } from "react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { Web3Context } from "web3-hooks";
-import Governance from "../components/Governance";
-import Treasury from "../components/Treasury";
-import Management from "../components/Management";
-import { useDao } from "../hooks/useDao";
+import { useDaoFactory } from "../hooks/useDaoFactory";
+import ContractsLayout from "./ContractsLayout";
+import DaoContextProvider from "../context/DaoContext";
+import Roles from "./Roles";
 
 const Dao = () => {
   const params = useParams()
   const { id } = params
-  const [web3State] = useContext(Web3Context)
-  const [dao, daoState, daoDispatch] = useDao()
-  const { account, role, grant, data } = daoState
 
-  const handleChangeAccount = (e) => {
-    daoDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.event })
-  }
-  const handleChangeRole = (e) => {
-    daoDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
-  }
-  const handleChangeGrant = (e) => {
-    daoDispatch({ type: "CHANGE_GRANT", payload: e.target.event })
-  }
-
-  const handleClickChangeRole = async () => {
-    const byteRole = ethers.utils.id(role)
-    grant ? await dao.grantRole(byteRole, account) : await dao.revokeRole(byteRole, account)
-  }
-  const checkRole = async (role) => {
-    return await dao.hasRole(ethers.utils.id(role), web3State.account)
-  }
-
-  useEffect(() => {
-    let gov, man, tre;
-    const getAddress = async () => {
-      gov = await dao.governanceAddress();
-      man = await dao.managementAddress();
-      tre = await dao.treasuryAddress();
-    }
-    getAddress()
-    daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
-  }, [dao, daoDispatch])
+  const [, daoFactoryState] = useDaoFactory();
+  const data = daoFactoryState.daoFactory_data[id];
 
   return (
-    <Box>
-      <Stack>
-        <Text>Business information</Text>
-        <Text>Name: {data.name}</Text>
-        <Text>Url: {data.url}</Text>
-        <Text>Author: {data.author}</Text>
-        <Text>Created at: {data.createdAt}</Text>
-        <Text>Contract Address: {data.daoAddress}</Text>
-        <Text>Id: {id}</Text>
-      </Stack>
-      <Governance />
-      <Treasury />
-      <Management />
-      {checkRole("DEFAULT_ADMIN_ROLE") || checkRole("ADMIN_ROLE") ? (
+    <DaoContextProvider daoAddress={data.daoAddress}>
+      <Box>
         <Stack>
-          <Input value={account} onChange={handleChangeAccount} placeholder="0x0" />
-          <Input value={role} onChange={handleChangeRole} placeholder="ADMIN_ROLE" />
-          <Input value={grant} onChange={handleChangeGrant} placeholder="true" />
-          <Button onClick={handleClickChangeRole}>Change role</Button>
+          <Text>Business information</Text>
+          <Text>Name: {data.name}</Text>
+          <Text>Url: {data.url}</Text>
+          <Text>Author: {data.author}</Text>
+          <Text>Created at: {data.createdAt}</Text>
+          <Text>Contract Address: {data.daoAddress}</Text>
+          <Text>Id: {id}</Text>
         </Stack>
-      ) : <></>}
-    </Box>
+        <ContractsLayout />
+        <Roles />
+      </Box>
+    </DaoContextProvider>
   );
 };
 

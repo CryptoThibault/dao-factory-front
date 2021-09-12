@@ -1,9 +1,9 @@
 import { useContext, useReducer } from "react"
-import ContractsContext from "../context/ContractsContext"
+import { DaoContext } from "../context/DaoContext"
 import { daoReducer } from "../reducers/daoReducer"
 
 export const useDao = () => {
-  const [dao] = useContext(ContractsContext)
+  const [dao] = useContext(DaoContext)
   const [daoState, daoDispatch] = useReducer(daoReducer, {
     account: "",
     role: "",

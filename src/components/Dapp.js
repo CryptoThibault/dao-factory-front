@@ -7,20 +7,20 @@ import DaoList from "./DaoList";
 
 const Dapp = () => {
   return (
-    <Router>
-      <Text>Dao Factory</Text>
-      <Switch>
-        <Route path="/:id">
-          <Dao />
-        </Route>
-        <Route path="/" >
-          <DaoFactoryContextProvider>
+    <DaoFactoryContextProvider>
+      <Router>
+        <Text>Dao Factory</Text>
+        <Switch>
+          <Route path="/:id">
+            <Dao />
+          </Route>
+          <Route path="/" >
             <DaoFactory />
             <DaoList />
-          </DaoFactoryContextProvider>
-        </Route>
-      </Switch>
-    </Router>
+          </Route>
+        </Switch>
+      </Router>
+    </DaoFactoryContextProvider>
   );
 };
 

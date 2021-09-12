@@ -31,7 +31,7 @@ const DaoList = () => {
       {daoFactory_id.map(el => {
         return (
           <Link to={`/${el}`}>
-            <Text>{daoFactory_data[el].name}</Text>
+            <Text>{daoFactory_data[el].name} #{el}</Text>
             <Text>Contract address: {daoFactory_data[el].daoAddress}</Text>
           </Link>
         )
