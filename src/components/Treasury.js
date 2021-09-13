@@ -53,9 +53,11 @@ const Treasury = () => {
         })
       }
     }
-    getCharges()
-    treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
-    treasuryDispatch({ type: "UPDATE_CHARGES_DATA", payload: data })
+    if (treasury) {
+      getCharges()
+      treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
+      treasuryDispatch({ type: "UPDATE_CHARGES_DATA", payload: data })
+    }
   }, [treasury, treasuryDispatch])
 
   return (

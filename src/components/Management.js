@@ -40,9 +40,11 @@ const Management = () => {
         })
       }
     }
-    getEmployees()
-    managementDispatch({ type: "LIST_EMPLOYEES", payload: ids })
-    managementDispatch({ type: "UPDATE_EMPLOYEES_DATA", payload: data })
+    if (management) {
+      getEmployees()
+      managementDispatch({ type: "LIST_EMPLOYEES", payload: ids })
+      managementDispatch({ type: "UPDATE_EMPLOYEES_DATA", payload: data })
+    }
   }, [management, managementDispatch])
 
   return (

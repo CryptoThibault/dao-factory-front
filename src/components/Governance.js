@@ -78,11 +78,13 @@ const Governance = () => {
         })
       }
     }
-    getProposals()
-    getToken()
-    governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
-    governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
-    governanceDispatch({ type: "UPDATE_TOKEN_DATA", payload: tokenData })
+    if (governance) {
+      getProposals()
+      getToken()
+      governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
+      governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
+      governanceDispatch({ type: "UPDATE_TOKEN_DATA", payload: tokenData })
+    }
   }, [governance, governanceDispatch, web3State.account])
 
   return (

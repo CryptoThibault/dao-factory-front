@@ -30,6 +30,11 @@ export const daoFactoryReducer = (state, action) => {
         ...state,
         daoFactory_data: action.payload,
       }
+    case "UPDATE_DAO":
+      return {
+        ...state,
+        dao: action.payload,
+      }
     default: throw new Error(`Unsupported action type ${action.type}`);
   }
 }

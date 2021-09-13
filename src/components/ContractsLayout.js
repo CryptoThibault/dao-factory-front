@@ -17,8 +17,10 @@ const ContractsLayout = () => {
       man = await dao.managementAddress();
       tre = await dao.treasuryAddress();
     }
-    getAddress()
-    daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
+    if (dao) {
+      getAddress()
+      daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
+    }
   }, [dao, daoDispatch])
   return (
     <Box>

@@ -10,7 +10,6 @@ import DaoList from "./DaoList";
 const Dapp = () => {
   const [web3State, login] = useContext(Web3Context)
   const [list, listUp] = useState(false)
-  console.log(list)
   return (
     <DaoFactoryContextProvider>
       <Text fontSize={80} align="center">Dao Factory</Text>

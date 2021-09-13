@@ -22,9 +22,11 @@ const DaoList = () => {
         })
       }
     }
-    getCompany()
-    daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
-    daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
+    if (daoFactory) {
+      getCompany()
+      daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
+      daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
+    }
   }, [daoFactory, daoFactoryDispatch])
   return (
     <Box>
