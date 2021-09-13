@@ -32,16 +32,20 @@ const Governance = () => {
     governanceDispatch({ type: "CHANGE_GRANT", payload: e.target.event })
   }
   const handleClickSend = async () => {
-    await governance.transfer(send_account, send_amount)
+    const tx = await governance.transfer(send_account, send_amount)
+    await tx.wait()
   }
   const handleCLickLock = async () => {
-    await governance.lock(lock_amount);
+    const tx = await governance.lock(lock_amount);
+    await tx.wait()
   }
   const handleCLickUnlock = async () => {
-    await governance.unlock(lock_amount)
+    const tx = await governance.unlock(lock_amount)
+    await tx.wait()
   }
   const handleClickPropose = async () => {
-    await governance.propose(description, account, ethers.utils.id(role), grant);
+    const tx = await governance.propose(description, account, ethers.utils.id(role), grant);
+    await tx.wait()
   }
 
   useEffect(() => {

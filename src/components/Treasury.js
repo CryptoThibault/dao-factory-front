@@ -24,13 +24,16 @@ const Treasury = () => {
   }
 
   const handleClickFeed = async () => {
-    await treasury.feed({ value: sendAmount });
+    const tx = await treasury.feed({ value: sendAmount });
+    await tx.wait()
   }
   const handleClickTransfer = async () => {
-    await treasury.simpleTransfer(sendAddress, sendAmount)
+    const tx = await treasury.simpleTransfer(sendAddress, sendAmount)
+    await tx.wait()
   }
   const handleClickAdd = async () => {
-    await treasury.addCharge(name, receiver, amount);
+    const tx = await treasury.addCharge(name, receiver, amount);
+    await tx.wait()
   }
 
   useEffect(() => {

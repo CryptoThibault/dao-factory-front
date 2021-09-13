@@ -2,10 +2,12 @@ import { Box, Button, Text } from "@chakra-ui/react";
 
 const Charge = ({ treasury, id, data }) => {
   const handleClickCancel = async () => {
-    await treasury.cancelCharge(id);
+    const tx = await treasury.cancelCharge(id)
+    await tx.wait()
   }
   const handleClickPay = async () => {
-    await treasury.payCharge(id)
+    const tx = await treasury.payCharge(id)
+    await tx.wait()
   }
   return (
     <Box>

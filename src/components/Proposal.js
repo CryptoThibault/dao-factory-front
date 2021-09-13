@@ -2,10 +2,12 @@ import { Box, Button, Text } from "@chakra-ui/react"
 
 const Proposal = (governance, id, data) => {
   const handleClickYes = async () => {
-    await governance.vote(id, 0);
+    const tx = await governance.vote(id, 0);
+    await tx.wait()
   }
   const handleClickNo = async () => {
-    await governance.vote(id, 1);
+    const tx = await governance.vote(id, 1);
+    await tx.wait()
   }
   return (
     <Box>

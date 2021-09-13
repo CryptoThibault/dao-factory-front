@@ -20,7 +20,9 @@ const Roles = () => {
 
   const handleClickChangeRole = async () => {
     const byteRole = ethers.utils.id(role)
-    grant ? await dao.grantRole(byteRole, account) : await dao.revokeRole(byteRole, account)
+    let tx;
+    grant ? tx = await dao.grantRole(byteRole, account) : tx = await dao.revokeRole(byteRole, account)
+    await tx.wait()
   }
   const checkRole = async (role) => {
     return await dao.hasRole(role, web3State.account)

@@ -17,10 +17,12 @@ const Management = () => {
     managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
   }
   const handleClickFeed = async () => {
-    await management.feed({ value: sendAmount });
+    const tx = await management.feed({ value: sendAmount });
+    await tx.wait()
   }
   const handleClickEmploy = async () => {
-    await management.employ(account, salary);
+    const tx = await management.employ(account, salary);
+    await tx.wait()
   }
   useEffect(() => {
     let ids = []

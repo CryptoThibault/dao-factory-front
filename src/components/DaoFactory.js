@@ -15,10 +15,11 @@ const DaoFactory = ({ listUp }) => {
     daoFactoryDispatch({ type: "CHANGE_TOKEN_NAME", payload: e.target.value })
   }
   const handleChangeTokenSymbol = (e) => {
-    daoFactoryDispatch({ type: "CHANGE_TOKEN SYMBOL", payload: e.target.value })
+    daoFactoryDispatch({ type: "CHANGE_TOKEN_SYMBOL", payload: e.target.value })
   }
   const handleClickGenerate = async () => {
-    await daoFactory.create(name, url, tokenName, tokenSymbol);
+    const tx = await daoFactory.create(name, url, tokenName, tokenSymbol);
+    await tx.wait()
     listUp(true);
   }
 
@@ -28,19 +29,19 @@ const DaoFactory = ({ listUp }) => {
       <Stack spacing={3}>
         <InputGroup>
           <InputLeftAddon children="Company name :" />
-          <Input placeholder="Example" value={name} onChange={handleChangeName} />
+          <Input placeholder="Company 1" value={name} onChange={handleChangeName} />
         </InputGroup>
         <InputGroup>
           <InputLeftAddon children="Company Url :" />
-          <Input placeholder="example.com" value={url} onChange={handleChangeUrl} />
+          <Input placeholder="company1.com" value={url} onChange={handleChangeUrl} />
         </InputGroup>
         <InputGroup>
           <InputLeftAddon children="Governance token name :" />
-          <Input placeholder="Example Governance Token" value={tokenName} onChange={handleChangeTokenName} />
+          <Input placeholder="Company 1 Governance Token" value={tokenName} onChange={handleChangeTokenName} />
         </InputGroup>
         <InputGroup>
           <InputLeftAddon children="Governance token symbol :" />
-          <Input placeholder="EGT" value={tokenSymbol} onChange={handleChangeTokenSymbol} />
+          <Input placeholder="C1GT" value={tokenSymbol} onChange={handleChangeTokenSymbol} />
         </InputGroup>
         <Button onClick={handleClickGenerate}>Generate Company</Button>
       </Stack>

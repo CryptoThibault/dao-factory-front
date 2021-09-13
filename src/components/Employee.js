@@ -2,13 +2,16 @@ import { Box, Button, Text } from "@chakra-ui/react";
 
 const Employee = ({ management, id, data }) => {
   const handleClickFire = async () => {
-    await management.fire(data.account);
+    const tx = await management.fire(data.account);
+    await tx.wait()
   }
   const handleClickResign = async () => {
-    await management.resign();
+    const tx = await management.resign();
+    await tx.wait()
   }
   const handleClickPayout = async () => {
-    await management.payout();
+    const tx = await management.payout();
+    await tx.wait()
   }
   return (
     <Box>
