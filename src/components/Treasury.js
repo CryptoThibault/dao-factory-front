@@ -1,4 +1,4 @@
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useTreasury } from "../hooks/useTreasury";
 import Charge from "./Charge";
@@ -61,18 +61,37 @@ const Treasury = () => {
   }, [treasury, treasuryDispatch])
 
   return (
-    <Box>
+    <Box margin={5}>
       <Text fontSize={30} align="center">Treasury</Text>
-      <Input value={sendAmount} onChange={handleChangeSendAmount}></Input>
-      <Input value={sendAddress} onChange={handleChangeSendAddress}></Input>
-      <Button onClick={handleClickFeed}>Feed</Button>
-      <Button onClick={handleClickTransfer}>Transfer</Button>
-      <Stack spacing={3}>
-        <Text>Create Charge</Text>
-        <Input value={name} onChange={handleChangeName} />
-        <Input value={receiver} onChange={handleChangeReceiver} />
-        <Input value={amount} onChange={handleChangeAmount} />
-        <Button onClick={handleClickAdd}>Create Charge</Button>
+      <Stack spacing={3} margin={5}>
+        <InputGroup>
+          <InputLeftAddon children="Amount :" />
+          <Input value={sendAmount} onChange={handleChangeSendAmount} placeholder="0.1" />
+          <InputRightAddon children="ETH" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Account :" />
+          <Input value={sendAddress} onChange={handleChangeSendAddress} placeholder="0x0" />
+        </InputGroup>
+        <Button onClick={handleClickFeed}>Feed</Button>
+        <Button onClick={handleClickTransfer}>Transfer</Button>
+      </Stack>
+      <Stack spacing={3} margin={5}>
+        <Text fontSize={20} align="center">Create Charge</Text>
+        <InputGroup>
+          <InputLeftAddon children="Name :" />
+          <Input value={name} onChange={handleChangeName} placeholder="Charge 1" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Receiver :" />
+          <Input value={receiver} onChange={handleChangeReceiver} placeholder="0x0" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Amount :" />
+          <Input value={amount} onChange={handleChangeAmount} placeholder="0.1" />
+          <InputRightAddon children="ETH" />
+        </InputGroup>
+        <Button onClick={handleClickAdd}>Create this charge</Button>
       </Stack>
       {charges_id.map(el => {
         return <Charge treasury={treasury} id={el} data={charges_data[el]} />

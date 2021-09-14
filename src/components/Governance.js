@@ -1,4 +1,4 @@
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, InputGroup, InputLeftAddon, InputRightAddon, Select, Stack, Switch, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
 import { useContext, useEffect } from "react";
 import { Web3Context } from "web3-hooks";
@@ -28,11 +28,19 @@ const Governance = () => {
   const handleChangeRole = (e) => {
     governanceDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
   }
-  const handleChangeGrant = (e) => {
-    governanceDispatch({ type: "CHANGE_GRANT", payload: e.target.event })
+  const handleChangeGrant = () => {
+    governanceDispatch({ type: "CHANGE_GRANT", payload: !grant })
   }
   const handleClickSend = async () => {
     const tx = await governance.transfer(send_account, send_amount)
+    await tx.wait()
+  }
+  const handleClickMint = async () => {
+    const tx = await governance.mint(send_account, send_amount)
+    await tx.wait()
+  }
+  const handleClickBurn = async () => {
+    const tx = await governance.burn(send_account, send_amount)
     await tx.wait()
   }
   const handleCLickLock = async () => {
@@ -88,38 +96,71 @@ const Governance = () => {
   }, [governance, governanceDispatch, web3State.account])
 
   return (
-    <Box>
+    <Box margin={5}>
       <Text fontSize={30} align="center">Governance</Text>
       <Stack spacing={3}>
         <Text>Personal information</Text>
         <Text>Balance of {token_data.name}: {token_data.balance} {token_data.symbol}</Text>
-        <Text>Locked balance: {token_data.voting}</Text>
+        <Text>Locked balance: {token_data.voting} {token_data.symbol}</Text>
       </Stack>
-      <Stack spacing={3}>
-        <Input value={send_account} onChange={handleChangeSendAccount} placeholder="account" />
-        <Input value={send_amount} onChange={handleChangeSendAmount} placeholder="amount" />
-        <Button onClick={handleClickSend}>Send</Button>
+      <Text fontSize={20} align="center">ERC20 dashboard</Text>
+      <Stack spacing={3} margin={5}>
+        <InputGroup>
+          <InputLeftAddon children="Account :" />
+          <Input value={send_account} onChange={handleChangeSendAccount} placeholder="0x0" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Ammount :" />
+          <Input value={send_amount} onChange={handleChangeSendAmount} placeholder="10" />
+          <InputRightAddon children={token_data.symbol} />
+        </InputGroup>
+        <Stack display="flex">
+          <Button onClick={handleClickSend}>Send</Button>
+          <Button onClick={handleClickMint}>Mint</Button>
+          <Button onClick={handleClickBurn}>Burn</Button>
+        </Stack>
       </Stack>
-      <Stack spacing={3}>
-        <Input value={lock_amount} onChange={handleChangeLockAmount} placeholder="amount" />
+      <Stack spacing={3} margin={5}>
+        <InputGroup>
+          <InputLeftAddon children="Lock amount :" />
+          <Input value={lock_amount} onChange={handleChangeLockAmount} placeholder="10" />
+        </InputGroup>
         <Button onClick={handleCLickLock}>Lock</Button>
         <Button onClick={handleCLickUnlock}>Unlock</Button>
       </Stack>
-      <Stack spacing={3}>
-        <Button>Mint</Button>
-        <Button>Burn</Button>
-      </Stack>
-      <Stack spacing={3}>
-        <Text>Submit a Role Proposal</Text>
-        <Input value={description} onChange={handleChangeDescription} />
-        <Input value={account} onChange={handleChangeAccount} />
-        <Input value={role} onChange={handleChangeRole} />
-        <Input value={grant} onChange={handleChangeGrant} />
+      <Text fontSize={20} align="center">Submit a Role Proposal</Text>
+      <Stack spacing={3} margin={5}>
+        <InputGroup>
+          <InputLeftAddon children="Description :" />
+          <Input value={description} onChange={handleChangeDescription} placeholder="Proposal for change role of a user" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Account :" />
+          <Input value={account} onChange={handleChangeAccount} placeholder="0x0" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Role :" />
+          <Select value={role} onChange={handleChangeRole} placeholder="Select role" >
+            <option value="DEFAULT_ADMIN_ROLE">DEFAULT_ADMIN_ROLE</option>
+            <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+            <option value="PROPOSER_ROLE">PROPOSER_ROLE</option>
+            <option value="MINTER_ROLE">MINTER_ROLE</option>
+            <option value="BURNER_ROLE">BURNER_ROLE</option>
+            <option value="MANAGER_ROLE">MANAGER_ROLE</option>
+            <option value="TREASURIER_ROLE">TREASURIER_ROLE</option>
+          </Select>
+        </InputGroup>
+        <FormControl display="flex" alignItems="center">
+          <FormLabel htmlFor="grant">Grant or Revoke ?</FormLabel>
+          <Switch id="grant" value={grant} onChange={handleChangeGrant} defaultChecked="true" />
+        </FormControl>
         <Button onClick={handleClickPropose}>Propose</Button>
       </Stack>
-      {proposals_id.map(el => {
-        return <Proposal governance={governance} id={el} data={proposals_data[el]} />
-      })}
+      <Box>
+        {proposals_id.map(el => {
+          return <Proposal governance={governance} id={el} data={proposals_data[el]} />
+        })}
+      </Box>
     </Box>
   );
 };

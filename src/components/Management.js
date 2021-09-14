@@ -1,4 +1,4 @@
-import { Box, Button, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useManagement } from "../hooks/useManagement";
 import Employee from "./Employee"
@@ -48,19 +48,34 @@ const Management = () => {
   }, [management, managementDispatch])
 
   return (
-    <Box>
+    <Box margin={5}>
       <Text fontSize={30} align="center">Management</Text>
-      <Input value={sendAmount} onChange={handleChangeSendAmount} />
-      <Button onClick={handleClickFeed}>Feed</Button>
-      <Stack spacing={3}>
-        <Text>Employ people</Text>
-        <Input value={account} onChange={handleChangeAccount} />
-        <Input value={salary} onChange={handleChangeSalary} />
+      <Stack spacing={3} margin={5}>
+        <InputGroup>
+          <InputLeftAddon children="Amount :" />
+          <Input value={sendAmount} onChange={handleChangeSendAmount} placeholder="0.1" />
+          <InputRightAddon children="ETH" />
+        </InputGroup>
+        <Button onClick={handleClickFeed}>Feed</Button>
+      </Stack>
+      <Stack spacing={3} margin={5}>
+        <Text fontSize={20} align="center">Employ people</Text>
+        <InputGroup>
+          <InputLeftAddon children="Account :" />
+          <Input value={account} onChange={handleChangeAccount} placeholder="0x0" />
+        </InputGroup>
+        <InputGroup>
+          <InputLeftAddon children="Salary :" />
+          <Input value={salary} onChange={handleChangeSalary} placeholder="0.1" />
+          <InputRightAddon children="ETH" />
+        </InputGroup>
         <Button onClick={handleClickEmploy}>Employ</Button>
       </Stack>
-      {employees_id.map(el => {
-        return <Employee management={management} id={el} data={employees_data[el]} />
-      })}
+      <Box>
+        {employees_id.map(el => {
+          return <Employee management={management} id={el} data={employees_data[el]} />
+        })}
+      </Box>
     </Box>
   );
 };

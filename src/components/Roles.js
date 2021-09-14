@@ -11,7 +11,7 @@ const Roles = () => {
   const handleChangeRole = (e) => {
     daoDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
   }
-  const handleChangeGrant = (e) => {
+  const handleChangeGrant = () => {
     daoDispatch({ type: "CHANGE_GRANT", payload: !grant })
   }
 
@@ -47,7 +47,7 @@ const Roles = () => {
         </InputGroup>
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="grant">Grant or Revoke</FormLabel>
-          <Switch id="grant" value={grant} onChange={handleChangeGrant} />
+          <Switch id="grant" value={grant} onChange={handleChangeGrant} defaultChecked />
         </FormControl>
         <Button onClick={handleClickChangeRole}>Change role</Button>
         <Button onClick={handleClickCheckRole}>Check role</Button>

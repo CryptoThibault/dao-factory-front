@@ -1,4 +1,4 @@
-export const daoFactoryAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+export const daoFactoryAddress = "0x7995999f5B63cFcf061EA472755C0ed7A9E9289C";
 export const daoFactoryAbi = [
   {
     "anonymous": false,

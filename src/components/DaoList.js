@@ -11,7 +11,7 @@ const DaoList = () => {
       let ids = []
       let data = [{}]
       const id = await daoFactory.lastId();
-      for (let i = 1; i <= id; i++) {
+      for (let i = 1; i <= Number(id.toString()); i++) {
         ids.push(i)
         data.push({
           name: await daoFactory.nameOf(i),
@@ -26,15 +26,14 @@ const DaoList = () => {
     }
   }, [daoFactory, daoFactoryDispatch])
   return (
-    <Box>
-      {daoFactory_id.map(el => {
-        return (
-          <Link to={`/${el}`}>
-            <Text>{daoFactory_data[el].name} #{el}</Text>
-            <Text>Contract address: {daoFactory_data[el].daoAddress}</Text>
-          </Link>
-        )
-      })}
+    <Box> {daoFactory_id.map(el => {
+      return (
+        <Link to={`/${el}`}>
+          <Text>{daoFactory_data[el].name} #{el}</Text>
+          <Text>Contract address: {daoFactory_data[el].daoAddress}</Text>
+        </Link>
+      )
+    })}
     </Box>
   );
 };
