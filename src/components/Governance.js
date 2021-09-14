@@ -32,23 +32,23 @@ const Governance = ({ contractAddress }) => {
     governanceDispatch({ type: "CHANGE_GRANT", payload: !grant })
   }
   const handleClickSend = async () => {
-    const tx = await governance.transfer(send_account, send_amount)
+    const tx = await governance.transfer(send_account, ethers.utils.parseEther(send_amount))
     await tx.wait()
   }
   const handleClickMint = async () => {
-    const tx = await governance.mint(send_account, send_amount)
+    const tx = await governance.mint(send_account, ethers.utils.parseEther(send_amount))
     await tx.wait()
   }
   const handleClickBurn = async () => {
-    const tx = await governance.burn(send_account, send_amount)
+    const tx = await governance.burn(send_account, ethers.utils.parseEther(send_amount))
     await tx.wait()
   }
   const handleCLickLock = async () => {
-    const tx = await governance.lock(lock_amount);
+    const tx = await governance.lock(ethers.utils.parseEther(lock_amount));
     await tx.wait()
   }
   const handleCLickUnlock = async () => {
-    const tx = await governance.unlock(lock_amount)
+    const tx = await governance.unlock(ethers.utils.parseEther(lock_amount))
     await tx.wait()
   }
   const handleClickPropose = async () => {
@@ -63,7 +63,7 @@ const Governance = ({ contractAddress }) => {
           type: "UPDATE_TOKEN_DATA", payload: {
             name: await governance.name(),
             symbol: await governance.symbol(),
-            balance: Number((await governance.balanceOf(web3State.account)).toString()),
+            balance: ethers.utils.formatEther((await governance.balanceOf(web3State.account)).toString()),
             voting: Number((await governance.votingPowerOf(web3State.account)).toString()),
           }
         })

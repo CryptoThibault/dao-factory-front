@@ -1,4 +1,5 @@
 import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
+import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useTreasury } from "../hooks/useTreasury";
 import Charge from "./Charge";
@@ -24,15 +25,15 @@ const Treasury = ({ contractAddress }) => {
   }
 
   const handleClickFeed = async () => {
-    const tx = await treasury.feed({ value: sendAmount });
+    const tx = await treasury.feed({ value: ethers.utils.parseEther(sendAmount) });
     await tx.wait()
   }
   const handleClickTransfer = async () => {
-    const tx = await treasury.simpleTransfer(sendAddress, sendAmount)
+    const tx = await treasury.simpleTransfer(sendAddress, ethers.utils.parseEther(sendAmount))
     await tx.wait()
   }
   const handleClickAdd = async () => {
-    const tx = await treasury.addCharge(name, receiver, amount);
+    const tx = await treasury.addCharge(name, receiver, ethers.utils.parseEther(amount));
     await tx.wait()
   }
 
@@ -51,7 +52,7 @@ const Treasury = ({ contractAddress }) => {
         data.push({
           name: await treasury.nameOf(i),
           receiver: await treasury.receiverOf(i),
-          amount: await treasury.amountOf(i),
+          amount: ethers.utils.formatEther(await treasury.amountOf(i)),
           createdAt: await treasury.creationOf(i),
           active: await treasury.activeOf(i),
           counter: await treasury.counterOf(i),

@@ -1,4 +1,5 @@
 import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
+import { ethers } from "ethers";
 import { useEffect } from "react";
 import { useManagement } from "../hooks/useManagement";
 import Employee from "./Employee"
@@ -17,11 +18,11 @@ const Management = ({ contractAddress }) => {
     managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleClickFeed = async () => {
-    const tx = await management.feed({ value: sendAmount });
+    const tx = await management.feed({ value: ethers.utils.parseEther(sendAmount) });
     await tx.wait()
   }
   const handleClickEmploy = async () => {
-    const tx = await management.employ(account, salary);
+    const tx = await management.employ(account, ethers.utils.parseEther(salary));
     await tx.wait()
   }
   useEffect(() => {
@@ -39,7 +40,7 @@ const Management = ({ contractAddress }) => {
         ids.push(i)
         data.push({
           account: account_,
-          salary: await management.salaryOf(account_),
+          salary: ethers.utils.formatEther(await management.salaryOf(account_)),
           employed_at: await management.employmentOf(account_),
           next_payout: await management.lastPayoutOf(account_),
         })
