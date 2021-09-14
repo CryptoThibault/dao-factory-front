@@ -4,7 +4,7 @@
 
 [Link to Front](https://github.com/CryptoThibault/dao-factory-back)
 
-[Contract DaoFactory](https://etherscan.io/address/0x7995999f5B63cFcf061EA472755C0ed7A9E9289C)
+[Contract DaoFactory](https://goerli.etherscan.io/address/0x7995999f5B63cFcf061EA472755C0ed7A9E9289C)
 
 Created using React v17.0.2
 
