@@ -1,7 +1,7 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import { useDaoFactory } from "../hooks/useDaoFactory";
-//import ContractsLayout from "./ContractsLayout";
+import ContractsLayout from "./ContractsLayout";
 import DaoContextProvider from "../context/DaoContext";
 import Roles from "./Roles";
 import { useEffect } from "react";
@@ -32,8 +32,8 @@ const Dao = () => {
       {
         daoFactoryState.dao !== {} ? (
           <DaoContextProvider daoAddress={daoFactoryState.dao.address}>
-            <Box>
-              <Stack margin={5}>
+            <Box margin={5}>
+              <Stack >
                 <Text fontSize={40} align="center">Business information</Text>
                 <Text>Name: {daoFactoryState.dao.name}</Text>
                 <Text>Url: {daoFactoryState.dao.url}</Text>
@@ -42,10 +42,10 @@ const Dao = () => {
                 <Text>Contract Address: {daoFactoryState.dao.address}</Text>
                 <Text>Id: {id}</Text>
               </Stack>
-              {/*<ContractsLayout />*/}
+              <ContractsLayout />
               <Roles />
+              <Link margin={5} to="./">Back to Dao Factory</Link>
             </Box>
-            <Link to="./">Back to Dao Factory</Link>
           </DaoContextProvider>)
           : <Text>Dao is loading</Text >
       }

@@ -89,7 +89,7 @@ const Governance = () => {
 
   return (
     <Box>
-      <Text>Governance</Text>
+      <Text fontSize={30} align="center">Governance</Text>
       <Stack spacing={3}>
         <Text>Personal information</Text>
         <Text>Balance of {token_data.name}: {token_data.balance} {token_data.symbol}</Text>

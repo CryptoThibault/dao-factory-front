@@ -49,7 +49,7 @@ const Management = () => {
 
   return (
     <Box>
-      <Text>Management</Text>
+      <Text fontSize={30} align="center">Management</Text>
       <Input value={sendAmount} onChange={handleChangeSendAmount} />
       <Button onClick={handleClickFeed}>Feed</Button>
       <Stack spacing={3}>

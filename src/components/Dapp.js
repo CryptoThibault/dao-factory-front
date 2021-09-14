@@ -14,7 +14,6 @@ const Dapp = () => {
     <DaoFactoryContextProvider>
       <Text fontSize={80} align="center">Dao Factory</Text>
       <Button onClick={login} margin={5}>{!web3State.isLogged ? 'Log in' : 'Log out'}</Button>
-      <Button onClick={() => listUp(!list)}>{list ? 'Hide list' : 'Show list'}</Button>
       {web3State.isLogged ?
         (<Router>
           <Switch>
@@ -22,6 +21,7 @@ const Dapp = () => {
               <Dao />
             </Route>
             <Route path="/" >
+              <Button onClick={() => listUp(!list)}>{list ? 'Hide list' : 'Show list'}</Button>
               <DaoFactory listUp={listUp} />
               {list ? <DaoList /> : <></>}
             </Route>

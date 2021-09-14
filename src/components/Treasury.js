@@ -62,10 +62,10 @@ const Treasury = () => {
 
   return (
     <Box>
-      <Text>Treasury</Text>
+      <Text fontSize={30} align="center">Treasury</Text>
       <Input value={sendAmount} onChange={handleChangeSendAmount}></Input>
-      <Button onClick={handleClickFeed}>Feed</Button>
       <Input value={sendAddress} onChange={handleChangeSendAddress}></Input>
+      <Button onClick={handleClickFeed}>Feed</Button>
       <Button onClick={handleClickTransfer}>Transfer</Button>
       <Stack spacing={3}>
         <Text>Create Charge</Text>
