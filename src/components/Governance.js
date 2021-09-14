@@ -107,7 +107,7 @@ const Governance = ({ contractAddress }) => {
       }
     }
   }, [governance, governanceDispatch, web3State.account])
-
+  console.log(proposals_data)
   return token_data !== [] ?
     (<Box margin={5}>
       <Text fontSize={30} align="center" margin={5}>Governance</Text>
@@ -174,11 +174,9 @@ const Governance = ({ contractAddress }) => {
         <Button onClick={handleClickPropose}>Propose</Button>
       </Stack>
       <Box>
-        {
-          proposals_data !== [] ? proposals_id.map(el => {
-            return <Proposal governance={governance} id={el} data={proposals_data[el]} key={el} />
-          }) : <Text>Proposals list is loading</Text>
-        }
+        {proposals_id.map(el => {
+          return <Proposal governance={governance} id={el} data={proposals_data[el]} key={el} />
+        })}
       </Box>
     </Box >) : <Text>Governance is loading</Text>
 };

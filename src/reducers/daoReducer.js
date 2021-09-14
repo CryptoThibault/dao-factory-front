@@ -15,6 +15,11 @@ export const daoReducer = (state, action) => {
         ...state,
         grant: action.payload,
       }
+    case "CHANGE_ISROLE":
+      return {
+        ...state,
+        isRole: action.payload,
+      }
     case "UPDATE_ADDRESS":
       return {
         ...state,

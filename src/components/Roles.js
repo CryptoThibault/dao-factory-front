@@ -4,7 +4,7 @@ import { useDao } from "../hooks/useDao";
 
 const Roles = () => {
   const [dao, daoState, daoDispatch] = useDao()
-  const { account, role, grant } = daoState
+  const { account, role, grant, isRole } = daoState
   const handleChangeAccount = (e) => {
     console.log(e.target.value)
     daoDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.value })
@@ -24,7 +24,9 @@ const Roles = () => {
   }
   const handleClickCheckRole = async () => {
     const byteRole = role === 'DEFAULT_ADMIN_ROLE' ? ethers.constants.HashZero : ethers.utils.id(role)
-    console.log(await dao.hasRole(byteRole, account))
+    const tx = await dao.hasRole(byteRole, account)
+    console.log(tx)
+    daoDispatch({ type: "CHANGE_ISROLE", payload: tx })
   }
   return (
     <Box margin={3} padding={3} border="2px solid white">
@@ -52,6 +54,7 @@ const Roles = () => {
         </FormControl>
         <Button onClick={handleClickChangeRole}>Change role</Button>
         <Button onClick={handleClickCheckRole}>Check role</Button>
+        <Text>{`This user do ${isRole ? '' : 'not'} have this role`}</Text>
       </Stack>
     </Box>
   )

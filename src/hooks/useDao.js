@@ -8,6 +8,7 @@ export const useDao = () => {
     account: "",
     role: "",
     grant: true,
+    isRole: false,
     governanceAddress: "",
     managementAddress: "",
     treasuryAddress: "",
