@@ -5,6 +5,7 @@ import ContractsLayout from "./ContractsLayout";
 import DaoContextProvider from "../context/DaoContext";
 import Roles from "./Roles";
 import { useEffect } from "react";
+import SimpleDateTime from 'react-simple-timestamp-to-date';
 
 const Dao = () => {
   const params = useParams()
@@ -27,7 +28,7 @@ const Dao = () => {
       getDao()
     }
   }, [id, daoFactory, daoFactoryDispatch])
-  console.log(daoFactoryState.dao)
+  console.log('dao', daoFactoryState.dao.address)
   return (
     <Box>
       {
@@ -37,9 +38,9 @@ const Dao = () => {
               <Stack >
                 <Text fontSize={40} align="center">Business information</Text>
                 <Text>Name: {daoFactoryState.dao.name}</Text>
-                <Text>Url: {daoFactoryState.dao.url}</Text>
+                <Text>Url: <b><a href={daoFactoryState.dao.url}>{daoFactoryState.dao.url}</a></b></Text>
                 <Text>Author: {daoFactoryState.dao.author}</Text>
-                <Text>Created at: {daoFactoryState.dao.createdAt}</Text>
+                <Text>Created the <SimpleDateTime dateFormat="DMY" dateSeparator="/" timeSeparator=":">{daoFactoryState.dao.createdAt}</SimpleDateTime></Text>
                 <Text>Contract Address: {daoFactoryState.dao.address}</Text>
                 <Text>Id: {id}</Text>
               </Stack>

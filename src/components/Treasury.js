@@ -40,7 +40,12 @@ const Treasury = () => {
     async function getCharges() {
       let ids = []
       let data = [{}]
-      const id = await treasury.nbCharge();
+      let id = 0
+      try {
+        id = await treasury.nbCharge();
+      } catch (e) {
+        console.log(e.message)
+      }
       for (let i = 1; i <= id; i++) {
         ids.push(i)
         data.push({

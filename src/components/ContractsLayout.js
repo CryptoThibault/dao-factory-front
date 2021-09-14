@@ -11,15 +11,14 @@ const ContractsLayout = () => {
   const { governanceAddress, managementAddress, treasuryAddress } = daoState
 
   useEffect(() => {
-    let gov, man, tre;
     const getAddress = async () => {
-      gov = await dao.governanceAddress();
-      man = await dao.managementAddress();
-      tre = await dao.treasuryAddress();
+      const gov = await dao.governanceAddress();
+      const man = await dao.managementAddress();
+      const tre = await dao.treasuryAddress();
+      daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
     }
     if (dao) {
       getAddress()
-      daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
     }
   }, [dao, daoDispatch])
   console.log('gov', governanceAddress)
@@ -27,11 +26,11 @@ const ContractsLayout = () => {
   console.log('tre', treasuryAddress)
   return (
     <Box>
-      {governanceAddress !== undefined ?
+      {treasuryAddress !== "" ?
         <ContractsContextProvider address={{ governanceAddress, managementAddress, treasuryAddress }}>
-          {/*<Governance />*/}
-          {/*<Management />*/}
-          {/*<Treasury />*/}
+          {<Governance />}
+          {<Management />}
+          {<Treasury />}
         </ContractsContextProvider>
         : <Text>Contracts interface is loading</Text>}
 

@@ -6,7 +6,8 @@ const Roles = () => {
   const [dao, daoState, daoDispatch] = useDao()
   const { account, role, grant } = daoState
   const handleChangeAccount = (e) => {
-    daoDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.event })
+    console.log(e.target.value)
+    daoDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.value })
   }
   const handleChangeRole = (e) => {
     daoDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
@@ -35,8 +36,8 @@ const Roles = () => {
         </InputGroup>
         <InputGroup>
           <InputLeftAddon children="Role" />
-          <Select value={role} onChange={handleChangeRole} placeholder="Select role" >
-            <option value="DEFAULT_ADMIN_ROLE">DEFAULT_ADMIN_ROLE</option>
+          <Select value={role} onChange={handleChangeRole} >
+            <option value="DEFAULT_ADMIN_ROLE" defaultValue>DEFAULT_ADMIN_ROLE</option>
             <option value="ADMIN_ROLE">ADMIN_ROLE</option>
             <option value="PROPOSER_ROLE">PROPOSER_ROLE</option>
             <option value="MINTER_ROLE">MINTER_ROLE</option>

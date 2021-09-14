@@ -28,7 +28,12 @@ const Management = () => {
     async function getEmployees() {
       let ids = []
       let data = [{}]
-      const id = await management.nbEmployee();
+      let id = 0
+      try {
+        await management.nbEmployee()
+      } catch (e) {
+        console.log(e.message)
+      }
       for (let i = 1; i <= id; i++) {
         let account_ = await management.accountAt(id)
         ids.push(i)

@@ -63,14 +63,19 @@ const Governance = () => {
           name: await governance.name(),
           symbol: await governance.symbol(),
           balance: Number((await governance.balanceOf(web3State.account)).toString()),
-          voting: Number((await governance.votingPower(web3State.account)).toString()),
+          voting: Number((await governance.votingPowerOf(web3State.account)).toString()),
         }
       })
     }
     async function getProposals() {
       let ids = []
       let data = [{}]
-      const id = await governance.nbProposal();
+      let id = 0
+      try {
+        id = await governance.nbProposal();
+      } catch (e) {
+        console.log(e.message)
+      }
       for (let i = 1; i <= Number(id.toString()); i++) {
         ids.push(i)
         data.push({
@@ -83,25 +88,29 @@ const Governance = () => {
           nbNo: Number((await governance.nbNo(i)).toString()),
           createdAt: Number((await governance.creationOf(i)).toString()),
           status: await governance.statusOf(i),
-          voteUsed: Number((await governance.voteUsed(web3State.account, i)).toString()),
+          voteUsed: Number((await governance.voteUsedOf(web3State.account, i)).toString()),
         })
       }
       governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
       governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
     }
     if (governance || web3State.account) {
-      getProposals()
-      getToken()
+      try {
+        getToken()
+        getProposals()
+      } catch (e) {
+        console.log(e.message)
+      }
     }
   }, [governance, governanceDispatch, web3State.account])
 
-  return (
-    <Box margin={5}>
+  return token_data !== [] ?
+    (<Box margin={5}>
       <Text fontSize={30} align="center">Governance</Text>
       <Stack spacing={3}>
         <Text>Personal information</Text>
-        <Text>Balance of {token_data.name}: {token_data.balance} {token_data.symbol}</Text>
-        <Text>Locked balance: {token_data.voting} {token_data.symbol}</Text>
+        <Text>Balance of {token_data.name} : {token_data.balance} {token_data.symbol}</Text>
+        <Text>Locked balance : {token_data.voting} {token_data.symbol}</Text>
       </Stack>
       <Text fontSize={20} align="center">ERC20 dashboard</Text>
       <Stack spacing={3} margin={5}>
@@ -157,12 +166,13 @@ const Governance = () => {
         <Button onClick={handleClickPropose}>Propose</Button>
       </Stack>
       <Box>
-        {proposals_id.map(el => {
-          return <Proposal governance={governance} id={el} data={proposals_data[el]} />
-        })}
+        {
+          proposals_data !== [] ? proposals_id.map(el => {
+            return <Proposal governance={governance} id={el} data={proposals_data[el]} />
+          }) : <Text>Proposals list is loading</Text>
+        }
       </Box>
-    </Box>
-  );
+    </Box>) : <Text>Governance is loading</Text>
 };
 
 export default Governance;
