@@ -64,7 +64,7 @@ const Governance = ({ contractAddress }) => {
             name: await governance.name(),
             symbol: await governance.symbol(),
             balance: ethers.utils.formatEther((await governance.balanceOf(web3State.account)).toString()),
-            voting: Number((await governance.votingPowerOf(web3State.account)).toString()),
+            voting: ethers.utils.formatEther((await governance.votingPowerOf(web3State.account)).toString()),
           }
         })
       } catch (e) {
@@ -88,8 +88,8 @@ const Governance = ({ contractAddress }) => {
           role: await governance.roleOf(i),
           grant: await governance.grantOf(i),
           author: await governance.authorOf(i),
-          nbYes: Number((await governance.nbYes(i)).toString()),
-          nbNo: Number((await governance.nbNo(i)).toString()),
+          nbYes: Number((await governance.nbYesOf(i)).toString()),
+          nbNo: Number((await governance.nbNoOf(i)).toString()),
           createdAt: Number((await governance.creationOf(i)).toString()),
           status: await governance.statusOf(i),
           voteUsed: Number((await governance.voteUsedOf(web3State.account, i)).toString()),

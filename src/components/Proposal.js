@@ -9,7 +9,8 @@ const Proposal = (governance, id, data) => {
     const tx = await governance.vote(id, 1);
     await tx.wait()
   }
-  return (
+  console.log(data)
+  return data !== undefined ? (
     <Box>
       <Text>Proposal {id}</Text>
       <Text>Description: {data.description}</Text>
@@ -25,7 +26,7 @@ const Proposal = (governance, id, data) => {
       <Button onClick={handleClickNo}>No</Button>
       <Text>Vote Used: {data.voteUsed}</Text>
     </Box >
-  );
+  ) : <Text>Proposal is loading</Text>;
 };
 
 export default Proposal;
