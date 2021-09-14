@@ -62,8 +62,8 @@ const Governance = () => {
         type: "UPDATE_TOKEN_DATA", payload: {
           name: await governance.name(),
           symbol: await governance.symbol(),
-          balance: await governance.balanceOf(web3State.account),
-          voting: await governance.votingPower(web3State.account),
+          balance: Number((await governance.balanceOf(web3State.account)).toString()),
+          voting: Number((await governance.votingPower(web3State.account)).toString()),
         }
       })
     }
@@ -71,7 +71,7 @@ const Governance = () => {
       let ids = []
       let data = [{}]
       const id = await governance.nbProposal();
-      for (let i = 1; i <= id; i++) {
+      for (let i = 1; i <= Number(id.toString()); i++) {
         ids.push(i)
         data.push({
           description: await governance.descriptionOf(i),
@@ -79,17 +79,17 @@ const Governance = () => {
           role: await governance.roleOf(i),
           grant: await governance.grantOf(i),
           author: await governance.authorOf(i),
-          nbYes: await governance.nbYes(i),
-          nbNo: await governance.nbNo(i),
-          createdAt: await governance.creationOf(i),
+          nbYes: Number((await governance.nbYes(i)).toString()),
+          nbNo: Number((await governance.nbNo(i)).toString()),
+          createdAt: Number((await governance.creationOf(i)).toString()),
           status: await governance.statusOf(i),
-          voteUsed: await governance.voteUsed(web3State.account, i),
+          voteUsed: Number((await governance.voteUsed(web3State.account, i)).toString()),
         })
       }
       governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
       governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
     }
-    if (governance) {
+    if (governance || web3State.account) {
       getProposals()
       getToken()
     }

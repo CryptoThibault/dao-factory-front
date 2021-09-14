@@ -17,8 +17,9 @@ const Dao = () => {
         type: 'UPDATE_DAO', payload: {
           address: await daoFactory.daoAddressOf(id),
           name: await daoFactory.nameOf(id),
+          author: await daoFactory.authorOf(id),
           url: await daoFactory.urlOf(id),
-          createdAt: await daoFactory.creationOf(id),
+          createdAt: Number((await daoFactory.creationOf(id)).toString()),
         }
       })
     }
@@ -26,7 +27,7 @@ const Dao = () => {
       getDao()
     }
   }, [id, daoFactory, daoFactoryDispatch])
-
+  console.log(daoFactoryState.dao)
   return (
     <Box>
       {

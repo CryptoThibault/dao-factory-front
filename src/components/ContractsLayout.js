@@ -22,13 +22,16 @@ const ContractsLayout = () => {
       daoDispatch({ type: "UPDATE_ADDRESS", payload: { governanceAddress: gov, managementAddress: man, treasuryAddress: tre } })
     }
   }, [dao, daoDispatch])
+  console.log('gov', governanceAddress)
+  console.log('man', managementAddress)
+  console.log('tre', treasuryAddress)
   return (
     <Box>
-      {governanceAddress !== "" ?
+      {governanceAddress !== undefined ?
         <ContractsContextProvider address={{ governanceAddress, managementAddress, treasuryAddress }}>
-          <Governance />
-          <Management />
-          <Treasury />
+          {/*<Governance />*/}
+          {/*<Management />*/}
+          {/*<Treasury />*/}
         </ContractsContextProvider>
         : <Text>Contracts interface is loading</Text>}
 
