@@ -8,13 +8,13 @@ const Management = ({ contractAddress }) => {
   const { account, salary, sendAmount, employees_id, employees_data } = managementState
 
   const handleChangeAccount = (e) => {
-    managementDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.event })
+    managementDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.value })
   }
   const handleChangeSalary = (e) => {
-    managementDispatch({ type: "CHANGE_SALARY", payload: e.target.event })
+    managementDispatch({ type: "CHANGE_SALARY", payload: e.target.value })
   }
   const handleChangeSendAmount = (e) => {
-    managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
+    managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleClickFeed = async () => {
     const tx = await management.feed({ value: sendAmount });
@@ -79,7 +79,7 @@ const Management = ({ contractAddress }) => {
       </Stack>
       <Box>
         {employees_id.map(el => {
-          return <Employee management={management} id={el} data={employees_data[el]} />
+          return <Employee management={management} id={el} data={employees_data[el]} key={el} />
         })}
       </Box>
     </Box>

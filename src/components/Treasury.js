@@ -8,16 +8,16 @@ const Treasury = ({ contractAddress }) => {
   const { name, receiver, amount, sendAmount, sendAddress, charges_id, charges_data } = treasuryState
 
   const handleChangeName = (e) => {
-    treasuryDispatch({ type: "CHANGE_NAME", payload: e.target.event })
+    treasuryDispatch({ type: "CHANGE_NAME", payload: e.target.value })
   }
   const handleChangeReceiver = (e) => {
-    treasuryDispatch({ type: "CHANGE_RECEIVER", payload: e.target.event })
+    treasuryDispatch({ type: "CHANGE_RECEIVER", payload: e.target.value })
   }
   const handleChangeAmount = (e) => {
-    treasuryDispatch({ type: "CHANGE_AMOUNT", payload: e.target.event })
+    treasuryDispatch({ type: "CHANGE_AMOUNT", payload: e.target.value })
   }
   const handleChangeSendAmount = (e) => {
-    treasuryDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
+    treasuryDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleChangeSendAddress = (e) => {
     treasuryDispatch({ type: "CHANGE_SEND_ADDRESS", payload: e.target.event })
@@ -100,7 +100,7 @@ const Treasury = ({ contractAddress }) => {
         <Button onClick={handleClickAdd}>Create this charge</Button>
       </Stack>
       {charges_id.map(el => {
-        return <Charge treasury={treasury} id={el} data={charges_data[el]} />
+        return <Charge treasury={treasury} id={el} data={charges_data[el]} key={el} />
       })}
 
     </Box>

@@ -10,7 +10,7 @@ const Roles = () => {
     daoDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.value })
   }
   const handleChangeRole = (e) => {
-    daoDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
+    daoDispatch({ type: "CHANGE_ROLE", payload: e.target.value })
   }
   const handleChangeGrant = () => {
     daoDispatch({ type: "CHANGE_GRANT", payload: !grant })
@@ -22,6 +22,7 @@ const Roles = () => {
     grant ? tx = await dao.grantRole(byteRole, account) : tx = await dao.revokeRole(byteRole, account)
     await tx.wait()
   }
+  console.log(account, role, grant)
   const handleClickCheckRole = async () => {
     const byteRole = role === 'DEFAULT_ADMIN_ROLE' ? ethers.constants.HashZero : ethers.utils.id(role)
     console.log(await dao.hasRole(byteRole, account))

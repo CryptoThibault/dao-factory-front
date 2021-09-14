@@ -28,7 +28,6 @@ const Dao = () => {
       getDao()
     }
   }, [id, daoFactory, daoFactoryDispatch])
-  console.log('dao', daoFactoryState.dao.address)
   return (
     <Box>
       {

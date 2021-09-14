@@ -11,22 +11,22 @@ const Governance = ({ contractAddress }) => {
   const { token_data, send_account, send_amount, lock_amount, description, account, role, grant, proposals_id, proposals_data } = governanceState
 
   const handleChangeSendAccount = (e) => {
-    governanceDispatch({ type: "CHANGE_SEND_ACCOUNT", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_SEND_ACCOUNT", payload: e.target.value })
   }
   const handleChangeSendAmount = (e) => {
-    governanceDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleChangeLockAmount = (e) => {
-    governanceDispatch({ type: "CHANGE_LOCK_AMOUNT", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_LOCK_AMOUNT", payload: e.target.value })
   }
   const handleChangeDescription = (e) => {
-    governanceDispatch({ type: "CHANGE_DESCRIPTION", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_DESCRIPTION", payload: e.target.value })
   }
   const handleChangeAccount = (e) => {
-    governanceDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_ACCOUNT", payload: e.target.value })
   }
   const handleChangeRole = (e) => {
-    governanceDispatch({ type: "CHANGE_ROLE", payload: e.target.event })
+    governanceDispatch({ type: "CHANGE_ROLE", payload: e.target.value })
   }
   const handleChangeGrant = () => {
     governanceDispatch({ type: "CHANGE_GRANT", payload: !grant })
@@ -113,11 +113,13 @@ const Governance = ({ contractAddress }) => {
       <Text fontSize={30} align="center" margin={5}>Governance</Text>
       <Stack spacing={3}>
         <Text>Contract address: {contractAddress}</Text>
-        <Text>Personal information</Text>
-        <Text>Balance of {token_data.name} : {token_data.balance} {token_data.symbol}</Text>
-        <Text>Locked balance : {token_data.voting} {token_data.symbol}</Text>
+        <Stack spacing={3} padding={3} backgroundColor="gray.600">
+          <Text align="center">{token_data.name}</Text>
+          <Text>Your balance : {token_data.balance} {token_data.symbol}</Text>
+          <Text>Your locked balance : {token_data.voting} {token_data.symbol}</Text>
+        </Stack>
       </Stack>
-      <Text fontSize={20} align="center">ERC20 dashboard</Text>
+      <Text fontSize={20} align="center" margin={5}>ERC20 dashboard</Text>
       <Stack spacing={3} margin={5}>
         <InputGroup>
           <InputLeftAddon children="Account :" />
@@ -174,11 +176,11 @@ const Governance = ({ contractAddress }) => {
       <Box>
         {
           proposals_data !== [] ? proposals_id.map(el => {
-            return <Proposal governance={governance} id={el} data={proposals_data[el]} />
+            return <Proposal governance={governance} id={el} data={proposals_data[el]} key={el} />
           }) : <Text>Proposals list is loading</Text>
         }
       </Box>
-    </Box>) : <Text>Governance is loading</Text>
+    </Box >) : <Text>Governance is loading</Text>
 };
 
 export default Governance;

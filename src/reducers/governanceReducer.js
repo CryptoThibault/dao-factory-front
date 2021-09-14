@@ -8,7 +8,7 @@ export const governanceReducer = (state, action) => {
     case "CHANGE_SEND_ACCOUNT":
       return {
         ...state,
-        send_amount: action.payload,
+        send_account: action.payload,
       }
     case "CHANGE_SEND_AMOUNT":
       return {
