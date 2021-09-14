@@ -37,9 +37,9 @@ const Treasury = () => {
   }
 
   useEffect(() => {
-    let ids = []
-    let data = [{}]
     async function getCharges() {
+      let ids = []
+      let data = [{}]
       const id = await treasury.nbCharge();
       for (let i = 1; i <= id; i++) {
         ids.push(i)
@@ -52,11 +52,11 @@ const Treasury = () => {
           counter: await treasury.counterOf(i),
         })
       }
+      treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
+      treasuryDispatch({ type: "UPDATE_CHARGES_DATA", payload: data })
     }
     if (treasury) {
       getCharges()
-      treasuryDispatch({ type: "LIST_CHARGES", payload: ids })
-      treasuryDispatch({ type: "UPDATE_CHARGES_DATA", payload: data })
     }
   }, [treasury, treasuryDispatch])
 

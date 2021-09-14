@@ -1,5 +1,5 @@
 import { useContext, useReducer } from "react"
-import ContractsContext from "../context/ContractsContext"
+import { ContractsContext } from "../context/ContractsContext"
 import { governanceReducer } from "../reducers/governanceReducer"
 
 export const useGovernance = () => {

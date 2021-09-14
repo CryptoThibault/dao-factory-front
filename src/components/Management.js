@@ -25,9 +25,9 @@ const Management = () => {
     await tx.wait()
   }
   useEffect(() => {
-    let ids = []
-    let data = [{}]
     async function getEmployees() {
+      let ids = []
+      let data = [{}]
       const id = await management.nbEmployee();
       for (let i = 1; i <= id; i++) {
         let account_ = await management.accountAt(id)
@@ -39,11 +39,11 @@ const Management = () => {
           next_payout: await management.lastPayoutOf(account_),
         })
       }
+      managementDispatch({ type: "LIST_EMPLOYEES", payload: ids })
+      managementDispatch({ type: "UPDATE_EMPLOYEES_DATA", payload: data })
     }
     if (management) {
       getEmployees()
-      managementDispatch({ type: "LIST_EMPLOYEES", payload: ids })
-      managementDispatch({ type: "UPDATE_EMPLOYEES_DATA", payload: data })
     }
   }, [management, managementDispatch])
 

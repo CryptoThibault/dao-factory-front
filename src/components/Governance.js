@@ -49,18 +49,19 @@ const Governance = () => {
   }
 
   useEffect(() => {
-    let ids = []
-    let data = [{}]
-    let tokenData = {}
     async function getToken() {
-      tokenData = {
-        name: await governance.name(),
-        symbol: await governance.symbol(),
-        balance: await governance.balanceOf(web3State.account),
-        voting: await governance.votingPower(web3State.account),
-      }
+      governanceDispatch({
+        type: "UPDATE_TOKEN_DATA", payload: {
+          name: await governance.name(),
+          symbol: await governance.symbol(),
+          balance: await governance.balanceOf(web3State.account),
+          voting: await governance.votingPower(web3State.account),
+        }
+      })
     }
     async function getProposals() {
+      let ids = []
+      let data = [{}]
       const id = await governance.nbProposal();
       for (let i = 1; i <= id; i++) {
         ids.push(i)
@@ -77,13 +78,12 @@ const Governance = () => {
           voteUsed: await governance.voteUsed(web3State.account, i),
         })
       }
+      governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
+      governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
     }
     if (governance) {
       getProposals()
       getToken()
-      governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
-      governanceDispatch({ type: "UPDATE_PROPOSALS_DATA", payload: data })
-      governanceDispatch({ type: "UPDATE_TOKEN_DATA", payload: tokenData })
     }
   }, [governance, governanceDispatch, web3State.account])
 

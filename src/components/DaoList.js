@@ -7,25 +7,22 @@ const DaoList = () => {
   const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory()
   const { daoFactory_id, daoFactory_data } = daoFactoryState
   useEffect(() => {
-    let ids = []
-    let data = [{}]
     async function getCompany() {
+      let ids = []
+      let data = [{}]
       const id = await daoFactory.lastId();
       for (let i = 1; i <= id; i++) {
         ids.push(i)
         data.push({
           name: await daoFactory.nameOf(i),
-          url: await daoFactory.urlOf(i),
-          author: await daoFactory.authorOf(i),
-          createdAt: await daoFactory.creationOf(i).toString(),
           daoAddress: await daoFactory.daoAddressOf(i),
         })
       }
+      daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
+      daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
     }
     if (daoFactory) {
       getCompany()
-      daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
-      daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
     }
   }, [daoFactory, daoFactoryDispatch])
   return (

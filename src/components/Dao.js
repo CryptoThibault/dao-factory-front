@@ -1,7 +1,7 @@
 import { Box, Stack, Text } from "@chakra-ui/react";
 import { Link, useParams } from "react-router-dom";
 import { useDaoFactory } from "../hooks/useDaoFactory";
-import ContractsLayout from "./ContractsLayout";
+//import ContractsLayout from "./ContractsLayout";
 import DaoContextProvider from "../context/DaoContext";
 import Roles from "./Roles";
 import { useEffect } from "react";
@@ -12,18 +12,18 @@ const Dao = () => {
   const [daoFactory, daoFactoryState, daoFactoryDispatch] = useDaoFactory();
 
   useEffect(() => {
-    let dao = {}
     async function getDao() {
-      dao = {
-        address: await daoFactory.daoAddressOf(id),
-        name: await daoFactory.nameOf(id),
-        url: await daoFactory.urlOf(id),
-        createdAt: await daoFactory.creationOf(id),
-      }
+      daoFactoryDispatch({
+        type: 'UPDATE_DAO', payload: {
+          address: await daoFactory.daoAddressOf(id),
+          name: await daoFactory.nameOf(id),
+          url: await daoFactory.urlOf(id),
+          createdAt: await daoFactory.creationOf(id),
+        }
+      })
     }
     if (daoFactory) {
       getDao()
-      daoFactoryDispatch({ type: 'UPDATE_DAO', payload: dao })
     }
   }, [id, daoFactory, daoFactoryDispatch])
 
@@ -33,8 +33,8 @@ const Dao = () => {
         daoFactoryState.dao !== {} ? (
           <DaoContextProvider daoAddress={daoFactoryState.dao.address}>
             <Box>
-              <Stack>
-                <Text>Business information</Text>
+              <Stack margin={5}>
+                <Text fontSize={40} align="center">Business information</Text>
                 <Text>Name: {daoFactoryState.dao.name}</Text>
                 <Text>Url: {daoFactoryState.dao.url}</Text>
                 <Text>Author: {daoFactoryState.dao.author}</Text>
@@ -42,7 +42,7 @@ const Dao = () => {
                 <Text>Contract Address: {daoFactoryState.dao.address}</Text>
                 <Text>Id: {id}</Text>
               </Stack>
-              <ContractsLayout />
+              {/*<ContractsLayout />*/}
               <Roles />
             </Box>
             <Link to="./">Back to Dao Factory</Link>
