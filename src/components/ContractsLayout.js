@@ -28,9 +28,9 @@ const ContractsLayout = () => {
     <Box>
       {treasuryAddress !== "" ?
         <ContractsContextProvider address={{ governanceAddress, managementAddress, treasuryAddress }}>
-          {<Governance />}
-          {<Management />}
-          {<Treasury />}
+          {<Governance contractAddress={governanceAddress} />}
+          {<Management contractAddress={managementAddress} />}
+          {<Treasury contractAddress={treasuryAddress} />}
         </ContractsContextProvider>
         : <Text>Contracts interface is loading</Text>}
 

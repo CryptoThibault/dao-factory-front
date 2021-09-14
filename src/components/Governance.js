@@ -5,7 +5,7 @@ import { Web3Context } from "web3-hooks";
 import { useGovernance } from "../hooks/useGovernance";
 import Proposal from "./Proposal";
 
-const Governance = () => {
+const Governance = ({ contractAddress }) => {
   const [web3State] = useContext(Web3Context)
   const [governance, governanceState, governanceDispatch] = useGovernance()
   const { token_data, send_account, send_amount, lock_amount, description, account, role, grant, proposals_id, proposals_data } = governanceState
@@ -58,14 +58,18 @@ const Governance = () => {
 
   useEffect(() => {
     async function getToken() {
-      governanceDispatch({
-        type: "UPDATE_TOKEN_DATA", payload: {
-          name: await governance.name(),
-          symbol: await governance.symbol(),
-          balance: Number((await governance.balanceOf(web3State.account)).toString()),
-          voting: Number((await governance.votingPowerOf(web3State.account)).toString()),
-        }
-      })
+      try {
+        governanceDispatch({
+          type: "UPDATE_TOKEN_DATA", payload: {
+            name: await governance.name(),
+            symbol: await governance.symbol(),
+            balance: Number((await governance.balanceOf(web3State.account)).toString()),
+            voting: Number((await governance.votingPowerOf(web3State.account)).toString()),
+          }
+        })
+      } catch (e) {
+        console.log(e.message)
+      }
     }
     async function getProposals() {
       let ids = []
@@ -106,8 +110,9 @@ const Governance = () => {
 
   return token_data !== [] ?
     (<Box margin={5}>
-      <Text fontSize={30} align="center">Governance</Text>
+      <Text fontSize={30} align="center" margin={5}>Governance</Text>
       <Stack spacing={3}>
+        <Text>Contract address: {contractAddress}</Text>
         <Text>Personal information</Text>
         <Text>Balance of {token_data.name} : {token_data.balance} {token_data.symbol}</Text>
         <Text>Locked balance : {token_data.voting} {token_data.symbol}</Text>
@@ -133,6 +138,7 @@ const Governance = () => {
         <InputGroup>
           <InputLeftAddon children="Lock amount :" />
           <Input value={lock_amount} onChange={handleChangeLockAmount} placeholder="10" />
+          <InputRightAddon children={token_data.symbol} />
         </InputGroup>
         <Button onClick={handleCLickLock}>Lock</Button>
         <Button onClick={handleCLickUnlock}>Unlock</Button>

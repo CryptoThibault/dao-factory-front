@@ -1,9 +1,11 @@
 import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { Web3Context } from "web3-hooks";
 import { useTreasury } from "../hooks/useTreasury";
 import Charge from "./Charge";
 
-const Treasury = () => {
+const Treasury = ({ contractAddress }) => {
+  const [web3State] = useContext(Web3Context)
   const [treasury, treasuryState, treasuryDispatch] = useTreasury()
   const { name, receiver, amount, sendAmount, sendAddress, charges_id, charges_data } = treasuryState
 
@@ -67,7 +69,9 @@ const Treasury = () => {
 
   return (
     <Box margin={5}>
-      <Text fontSize={30} align="center">Treasury</Text>
+      <Text fontSize={30} align="center" margin={5}>Treasury</Text>
+      <Text>Contract address: {contractAddress}</Text>
+      <Text>Treasury balance: {web3State.balance}</Text>
       <Stack spacing={3} margin={5}>
         <InputGroup>
           <InputLeftAddon children="Amount :" />

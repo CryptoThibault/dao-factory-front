@@ -10,13 +10,18 @@ const DaoList = () => {
     async function getCompany() {
       let ids = []
       let data = [{}]
-      const id = await daoFactory.lastId();
-      for (let i = 1; i <= Number(id.toString()); i++) {
-        ids.push(i)
-        data.push({
-          name: await daoFactory.nameOf(i),
-          daoAddress: await daoFactory.daoAddressOf(i),
-        })
+      let id = 0
+      try {
+        id = await daoFactory.lastId();
+        for (let i = 1; i <= Number(id.toString()); i++) {
+          ids.push(i)
+          data.push({
+            name: await daoFactory.nameOf(i),
+            daoAddress: await daoFactory.daoAddressOf(i),
+          })
+        }
+      } catch (e) {
+        console.log(e.message)
       }
       daoFactoryDispatch({ type: "LIST_COMPANY", payload: ids })
       daoFactoryDispatch({ type: "UPDATE_COMPANY_DATA", payload: data })
@@ -25,7 +30,8 @@ const DaoList = () => {
       getCompany()
     }
   }, [daoFactory, daoFactoryDispatch])
-  return (
+  console.log(daoFactory_data)
+  return daoFactory_data !== [] ? (
     <Box> {daoFactory_id.map(el => {
       return (
         <Link to={`/${el}`}>
@@ -35,7 +41,7 @@ const DaoList = () => {
       )
     })}
     </Box>
-  );
+  ) : <Text>Dao list is loading</Text>
 };
 
 export default DaoList;

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useManagement } from "../hooks/useManagement";
 import Employee from "./Employee"
 
-const Management = () => {
+const Management = ({ contractAddress }) => {
   const [management, managementState, managementDispatch] = useManagement()
   const { account, salary, sendAmount, employees_id, employees_data } = managementState
 
@@ -54,7 +54,9 @@ const Management = () => {
 
   return (
     <Box margin={5}>
-      <Text fontSize={30} align="center">Management</Text>
+      <Text fontSize={30} align="center" margin={5}>Management</Text>
+      <Text>Contract address: {contractAddress}</Text>
+      <Text>Management balance:</Text>
       <Stack spacing={3} margin={5}>
         <InputGroup>
           <InputLeftAddon children="Amount :" />
