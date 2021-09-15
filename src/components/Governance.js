@@ -112,7 +112,7 @@ const Governance = ({ contractAddress }) => {
       <Text fontSize={30} align="center" margin={5}>Governance</Text>
       <Stack spacing={3}>
         <Text>Contract address: {contractAddress}</Text>
-        <Stack spacing={3} padding={3} backgroundColor="gray.600">
+        <Stack spacing={3} padding={3} backgroundColor="gray.700">
           <Text align="center">{token_data.name}</Text>
           <Text>Your balance : {token_data.balance} {token_data.symbol}</Text>
           <Text>Your locked balance : {token_data.voting} {token_data.symbol}</Text>
