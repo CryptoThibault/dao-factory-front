@@ -1,4 +1,4 @@
-import { Box, Button, Text } from "@chakra-ui/react"
+import { Box, Button, Stack, Text } from "@chakra-ui/react"
 import SimpleDateTime from 'react-simple-timestamp-to-date';
 
 const Proposal = ({ governance, id, proposal }) => {
@@ -22,8 +22,13 @@ const Proposal = ({ governance, id, proposal }) => {
       <Text>Author: {proposal.author} </Text>
       <Text>Created the: <SimpleDateTime dateFormat="DMY" dateSeparator="/" timeSeparator=":">{proposal.createdAt}</SimpleDateTime></Text>
       <Text>Status: {!proposal.status ? 'Running' : proposal.status === 1 ? 'Approved' : 'Rejected'}</Text>
-      <Button onClick={handleClickYes}>Yes</Button>
-      <Button onClick={handleClickNo}>No</Button>
+      {!proposal.status ? (
+        <Stack direction={["column", "row"]} spacing={3}>
+          <Button onClick={handleClickYes}>Yes</Button>
+          <Button onClick={handleClickNo}>No</Button>
+        </Stack>
+      ) : <></>}
+
       <Text>Vote Used: {proposal.voteUsed}</Text>
     </Box >
   ) : <Text>Proposal is loading</Text>;
