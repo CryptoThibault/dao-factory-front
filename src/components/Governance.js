@@ -107,7 +107,7 @@ const Governance = ({ contractAddress }) => {
       }
     }
   }, [governance, governanceDispatch, web3State.account])
-  console.log(proposals_data)
+  console.log(proposals_data[1])
   return token_data !== [] ?
     (<Box margin={5}>
       <Text fontSize={30} align="center" margin={5}>Governance</Text>
@@ -175,7 +175,7 @@ const Governance = ({ contractAddress }) => {
       </Stack>
       <Box>
         {proposals_id.map(el => {
-          return <Proposal governance={governance} id={el} data={proposals_data[el]} key={el} />
+          return <Proposal governance={governance} id={el} proposal={proposals_data[el]} key={el} />
         })}
       </Box>
     </Box >) : <Text>Governance is loading</Text>

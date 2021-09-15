@@ -1,10 +1,12 @@
 import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { Web3Context } from "web3-hooks";
 import { useManagement } from "../hooks/useManagement";
 import Employee from "./Employee"
 
 const Management = ({ contractAddress }) => {
+  const [web3State] = useContext(Web3Context)
   const [management, managementState, managementDispatch] = useManagement()
   const { account, salary, sendAmount, employees_id, employees_data } = managementState
 
@@ -18,7 +20,10 @@ const Management = ({ contractAddress }) => {
     managementDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleClickFeed = async () => {
-    const tx = await management.feed({ value: ethers.utils.parseEther(sendAmount) });
+    const tx = await web3State.signer.sendTransaction({
+      to: contractAddress,
+      value: ethers.utils.parseEther(sendAmount),
+    })
     await tx.wait()
   }
   const handleClickEmploy = async () => {

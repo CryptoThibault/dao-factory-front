@@ -1,6 +1,6 @@
 import { Box, Button, Text } from "@chakra-ui/react"
 
-const Proposal = (governance, id, data) => {
+const Proposal = (governance, id, proposal) => {
   const handleClickYes = async () => {
     const tx = await governance.vote(id, 0);
     await tx.wait()
@@ -9,22 +9,22 @@ const Proposal = (governance, id, data) => {
     const tx = await governance.vote(id, 1);
     await tx.wait()
   }
-  console.log(data)
-  return data !== undefined ? (
+  console.log(proposal)
+  return proposal !== undefined ? (
     <Box>
-      <Text>Proposal {id}</Text>
-      <Text>Description: {data.description}</Text>
-      <Text>Account: {data.account} </Text>
-      <Text>Role: {data.role} </Text>
-      <Text>Grant: {data.grant} </Text>
-      <Text>Number of Yes: {data.nbYes} </Text>
-      <Text>Number of No: {data.nbNo} </Text>
-      <Text>Author: {data.author} </Text>
-      <Text>Created at: {data.createdAt}</Text>
-      <Text>Status: {data.status}</Text>
+      <Text fontSize={20} align="center">Proposal {id}</Text>
+      <Text>Description: {proposal.description}</Text>
+      <Text>Account: {proposal.account} </Text>
+      <Text>Role: {proposal.role} </Text>
+      <Text>Grant: {proposal.grant} </Text>
+      <Text>Number of Yes: {proposal.nbYes} </Text>
+      <Text>Number of No: {proposal.nbNo} </Text>
+      <Text>Author: {proposal.author} </Text>
+      <Text>Created at: {proposal.createdAt}</Text>
+      <Text>Status: {proposal.status}</Text>
       <Button onClick={handleClickYes}>Yes</Button>
       <Button onClick={handleClickNo}>No</Button>
-      <Text>Vote Used: {data.voteUsed}</Text>
+      <Text>Vote Used: {proposal.voteUsed}</Text>
     </Box >
   ) : <Text>Proposal is loading</Text>;
 };

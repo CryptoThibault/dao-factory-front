@@ -1,10 +1,12 @@
 import { Box, Button, Input, InputGroup, InputLeftAddon, InputRightAddon, Stack, Text } from "@chakra-ui/react";
 import { ethers } from "ethers";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
+import { Web3Context } from "web3-hooks";
 import { useTreasury } from "../hooks/useTreasury";
 import Charge from "./Charge";
 
 const Treasury = ({ contractAddress }) => {
+  const [web3State] = useContext(Web3Context)
   const [treasury, treasuryState, treasuryDispatch] = useTreasury()
   const { name, receiver, amount, sendAmount, sendAddress, charges_id, charges_data } = treasuryState
 
@@ -21,11 +23,14 @@ const Treasury = ({ contractAddress }) => {
     treasuryDispatch({ type: "CHANGE_SEND_AMOUNT", payload: e.target.value })
   }
   const handleChangeSendAddress = (e) => {
-    treasuryDispatch({ type: "CHANGE_SEND_ADDRESS", payload: e.target.event })
+    treasuryDispatch({ type: "CHANGE_SEND_ADDRESS", payload: e.target.value })
   }
 
   const handleClickFeed = async () => {
-    const tx = await treasury.feed({ value: ethers.utils.parseEther(sendAmount) });
+    const tx = await web3State.signer.sendTransaction({
+      to: contractAddress,
+      value: ethers.utils.parseEther(sendAmount),
+    })
     await tx.wait()
   }
   const handleClickTransfer = async () => {
@@ -36,7 +41,6 @@ const Treasury = ({ contractAddress }) => {
     const tx = await treasury.addCharge(name, receiver, ethers.utils.parseEther(amount));
     await tx.wait()
   }
-
   useEffect(() => {
     async function getCharges() {
       let ids = []

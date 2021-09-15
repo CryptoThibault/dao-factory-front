@@ -21,6 +21,9 @@ const ContractsLayout = () => {
       getAddress()
     }
   }, [dao, daoDispatch])
+  console.log('gov', governanceAddress)
+  console.log('man', managementAddress)
+  console.log('tre', treasuryAddress)
   return (
     <Box>
       {treasuryAddress !== "" ?
@@ -30,7 +33,6 @@ const ContractsLayout = () => {
           {<Treasury contractAddress={treasuryAddress} />}
         </ContractsContextProvider>
         : <Text>Contracts interface is loading</Text>}
-
     </Box>
   );
 };

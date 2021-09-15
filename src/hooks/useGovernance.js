@@ -14,7 +14,7 @@ export const useGovernance = () => {
     role: "",
     grant: true,
     proposals_id: [],
-    proposals_data: [{}],
+    proposals_data: [{}, { account: '', amount: '', createdAt: 0, description: '', grant: true, nbYes: 0, nbNO: 0, role: '', status: 0, vote_used: 0 }],
     vote_used: [],
   })
   if (governance === undefined) {
