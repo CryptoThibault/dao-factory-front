@@ -54,7 +54,7 @@ const Roles = () => {
         </FormControl>
         <Button onClick={handleClickChangeRole}>Change role</Button>
         <Button onClick={handleClickCheckRole}>Check role</Button>
-        <Text>{`This user do ${isRole ? '' : 'not'} have this role`}</Text>
+        <Text align="center">{`This user do ${isRole ? '' : 'not'} have this role`}</Text>
       </Stack>
     </Box>
   )

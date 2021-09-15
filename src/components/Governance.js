@@ -88,11 +88,11 @@ const Governance = ({ contractAddress }) => {
           role: await governance.roleOf(i),
           grant: await governance.grantOf(i),
           author: await governance.authorOf(i),
-          nbYes: Number((await governance.nbYesOf(i)).toString()),
-          nbNo: Number((await governance.nbNoOf(i)).toString()),
+          nbYes: ethers.utils.formatEther((await governance.nbYesOf(i)).toString()),
+          nbNo: ethers.utils.formatEther((await governance.nbNoOf(i)).toString()),
           createdAt: Number((await governance.creationOf(i)).toString()),
           status: await governance.statusOf(i),
-          voteUsed: Number((await governance.voteUsedOf(web3State.account, i)).toString()),
+          voteUsed: ethers.utils.formatEther((await governance.voteUsedOf(web3State.account, i)).toString()),
         })
       }
       governanceDispatch({ type: "LIST_PROPOSALS", payload: ids })
@@ -107,7 +107,6 @@ const Governance = ({ contractAddress }) => {
       }
     }
   }, [governance, governanceDispatch, web3State.account])
-  console.log(proposals_data[1])
   return token_data !== [] ?
     (<Box margin={5}>
       <Text fontSize={30} align="center" margin={5}>Governance</Text>
