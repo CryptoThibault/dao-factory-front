@@ -10,7 +10,7 @@ export const useDaoFactory = () => {
     tokenName: "",
     tokenSymbol: "",
     daoFactory_id: [],
-    daoFactory_data: [{}, { name: '', daoAddress: '' }],
+    daoFactory_data: [],
     dao: {},
   })
   if (daoFactory === undefined) {

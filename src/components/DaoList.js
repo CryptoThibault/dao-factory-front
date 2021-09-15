@@ -30,19 +30,19 @@ const DaoList = () => {
       getCompany()
     }
   }, [daoFactory, daoFactoryDispatch])
-  return daoFactory_data !== [] ? (
+  return (
     <Box> {daoFactory_id.map(el => {
-      return (
+      return daoFactory_data[el] ? (
         <Box backgroundColor="gray.600" margin={5} padding={3} key={el}>
           <Link to={`/${el}`}>
             <Text>{daoFactory_data[el].name} #{el}</Text>
             <Text>Contract address: {daoFactory_data[el].daoAddress}</Text>
           </Link>
         </Box>
-      )
+      ) : <Text>Dao link is loading</Text>
     })}
     </Box>
-  ) : <Text>Dao list is loading</Text>
+  )
 };
 
 export default DaoList;
